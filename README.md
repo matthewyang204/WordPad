@@ -1,4 +1,5 @@
 # WordPad
+<img width="5120" height="2880" alt="Screenshot 2025-10-08 194535" src="https://github.com/user-attachments/assets/feb965fa-83ba-4d7f-8ab1-e4214a97bb45" />
 This is continued development of WordPad. It is based off of the better, older version of WordPad bundled with Windows XP and prior versions. It has three themes. I found the source code hiding at the bottom of one of Microsoft's sample archives. For the reason I developed this, the backstory is that I used WordPad on Windows XP on my childhood computer. It was simple and got all word procesing done fast, taking less than 3 seconds to launch. And fast forward to today, as a software developer, I got very angry that Microsoft got rid of it in Windows 11 24H2. So I was determined to get my hands on the source legally somehow, and here it is. I found the XP version of it (which I like better than the modern Aero version that shipped with Windows 7+), finally, at the bottom of Microsoft's very own archives, and am in the process of modernizing it. Enjoy using this dream project of mine!
 
 ## This Is A Fork
