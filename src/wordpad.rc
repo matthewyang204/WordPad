@@ -558,11 +558,11 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Application Look"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    LTEXT           "Welcome to the MFC Library! The library supports various application looks such as Microsoft® Office XP/2003/2007, Microsoft® Visual Studio® 2005 and more.",IDC_STATIC,7,7,278,19
+    LTEXT           "Welcome to the MFC Library! The library supports various application looks such as Microsoft Office XP/2003/2007, Microsoft Visual Studio 2005 and more.",IDC_STATIC,7,7,278,19
     LTEXT           "Please choose the preferred look and click OK to continue.",IDC_STATIC,17,31,214,8
-    CONTROL         "Microsoft® Office XP",IDC_APP_LOOK1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,50,53,83,10
-    CONTROL         "Microsoft® Office 2003",IDC_APP_LOOK2,"Button",BS_AUTORADIOBUTTON,50,70,89,10
-    CONTROL         "Microsoft® Office 2007:",IDC_APP_LOOK3,"Button",BS_AUTORADIOBUTTON,50,87,91,10
+    CONTROL         "Microsoft Office XP",IDC_APP_LOOK1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,50,53,83,10
+    CONTROL         "Microsoft Office 2003",IDC_APP_LOOK2,"Button",BS_AUTORADIOBUTTON,50,70,89,10
+    CONTROL         "Microsoft Office 2007:",IDC_APP_LOOK3,"Button",BS_AUTORADIOBUTTON,50,87,91,10
     COMBOBOX        IDC_STYLE2007,158,86,102,131,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Note: you may change the application look in  ""View | Application Look..."" dialog.",IDC_STATIC,17,114,268,8
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,131,278,1
@@ -599,9 +599,9 @@ BEGIN
             VALUE "FileDescription", "WordPad MFC Application"
             VALUE "FileVersion", "1.0"
             VALUE "InternalName", "wordpad"
-            VALUE "LegalCopyright", "Copyright © Microsoft Corp. 1998"
+            VALUE "LegalCopyright", "Copyright Â© Microsoft Corp. 1998\nCopyright Â© Matthew Yang 2025"
             VALUE "OriginalFilename", "WORDPAD.EXE"
-            VALUE "ProductName", "Microsoft® Windows (TM) Operating System"
+            VALUE "ProductName", "Microsoft Windows (TM) Operating System"
             VALUE "ProductVersion", "4.0"
         END
     END
@@ -1016,7 +1016,7 @@ STRINGTABLE
 BEGIN
     IDS_WRITEPROTECT        "Unable to write to %1.\nThe disk is write-protected.\nA file cannot be saved on a write-protected disk."
     IDS_TITLE_MENUBAR       "Menu Bar"
-    IDS_ABOUT_INFO          "Copyright © 1992-2008 Microsoft Corporation. All rights reserved."
+    IDS_ABOUT_INFO          "Copyright Â© 1992-2008 Microsoft Corporation.\nCopyright Â© 2025 Matthew Yang"
 END
 
 STRINGTABLE 
@@ -1062,7 +1062,7 @@ BEGIN
     ID_BORDER_13            "Ascending Diagonal\nAscending Diagonal"
     ID_VIEW_FULL_SCREEN     "Toggles full screen mode\nFull Screen"
     ID_HELP_FIND            "Ask a question\nAsk a Question"
-    IDS_WRONG_DISPLAY_SETTINGS "The current display settings will not allow this application to display itself properly.\n\nPlease change the display color setting to ‘Highest (32 bit)’ and run this application again."
+    IDS_WRONG_DISPLAY_SETTINGS "The current display settings will not allow this application to display itself properly.\n\nPlease change the display color setting to Highest (32 bit) and run this application again."
 END
 
 #endif    // English (U.S.) resources
