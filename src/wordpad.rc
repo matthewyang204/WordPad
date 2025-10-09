@@ -504,14 +504,19 @@ FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         "",IDC_BIGICON,"Button",BS_OWNERDRAW | WS_DISABLED,6,6,38,40
     LTEXT           "WordPad Version 1.0",IDC_STATIC,60,6,164,8,NOT WS_GROUP
-    LTEXT           "Microsoft Foundation Classes",IDC_STATIC,60,15,164,8,NOT WS_GROUP
+    // LTEXT           "Microsoft Foundation Classes",IDC_STATIC,60,15,164,8,NOT WS_GROUP
     CONTROL         "",IDC_STATIC,"Static",SS_BLACKRECT,60,30,188,1
-    LTEXT           "Warning: This computer program is protected by",IDC_STATIC,60,36,188,8
+    LTEXT           "Copyright © Microsoft Corporation 1992-2008",IDC_STATIC,60,36,188,8
+    LTEXT           "Copyright © Matthew Yang 2025",IDC_STATIC,60,44,188,8
+    LTEXT           "Licensed under the MIT License; see LICENSE file for more",IDC_STATIC,60,52,188,8
+    LTEXT           "details.",IDC_STATIC,60,60,188,8
+    /* LTEXT           "Warning: This computer program is protected by",IDC_STATIC,60,36,188,8
     LTEXT           "copyright law and international treaties.  Unauthorized",IDC_STATIC,60,44,188,8
     LTEXT           "reproduction or distribution of this program, or any",IDC_STATIC,60,52,188,8
     LTEXT           "portion of it, may result in severe civil and criminal",IDC_STATIC,60,60,188,8
     LTEXT           "penalties, and will be prosecuted to the maximum",IDC_STATIC,60,68,188,8
     LTEXT           "extent possible under law.",IDC_STATIC,60,76,188,8
+    */
 END
 
 IDD_OPTIONS_UNITS DIALOG  0, 0, 280, 86
