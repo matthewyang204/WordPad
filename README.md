@@ -3,3 +3,6 @@ This is continued development of WordPad. It is based off of the better, older v
 
 ## This Is A Fork
 Please note that this project is a fork. It is continued development on WordPad based off the edition of WordPad packaged with Windows XP and earlier found hiding in the Microsoft VC++ Samples repo. You can check out the [VCSamples](https://github.com/microsoft/VCSamples) repo; the src was found in the [WordPad](https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/Visual%20C%2B%2B%202008%20Feature%20Pack/WordPad) section.
+
+# License
+This project is licensed under the MIT license to Microsoft and Matthew Yang (杨佳明). This applies to all versions future or past. See the [license file](LICENSE) for more details.
