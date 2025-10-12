@@ -264,3 +264,9 @@ paket-files/
 __pycache__/
 *.pyc
 
+# Inno Setup
+Output/
+*.exe
+
+# macOS annoyances
+.DS_Store
