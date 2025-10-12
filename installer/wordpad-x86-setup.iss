@@ -3,7 +3,7 @@
 
 #define MyAppName "WordPad"
 #define MyAppVersion "2025.10"
-#define MyAppPublisher "Microsoft & matthewyang204"
+#define MyAppPublisher "Microsoft & Matthew Yang"
 #define MyAppURL "https://github.com/matthewyang204/WordPad"
 #define MyAppExeName "WordPad.exe"
 #define MyAppAssocName MyAppName + " RTF File"
