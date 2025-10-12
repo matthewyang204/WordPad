@@ -16,8 +16,8 @@ Additionally, for development:
 - C++ MFC & ATL Libraries installed in VS
 - Inno Setup 6.43 or later
 
-# Installation
-Just run the installer.
+# Installation & Usage
+If installing to your system, just run the installer. For users of the portable distribution, simply extract the folder and place it anywhere you'd like.
 
 # Development
 For testing, you will need to build the project with the `Debug | Win32` configuration. After compiling, open up the Debug folder or start the application right in Visual Studio. You can build installers by compiling for `Release | Win32` and then opening up Inno Setup 6.43 or later and hitting either Ctrl+F9 or `Build > Compile` in the bar at the top of the window.
