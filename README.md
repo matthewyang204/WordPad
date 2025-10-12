@@ -11,12 +11,13 @@ Additionally, for development:
 - Visual Studio 2019
 - C++ Desktop Development workflow installed in VS
 - C++ MFC & ATL Libraries installed in VS
+- Inno Setup 6.43 or later
 
 # Installation
 Just run the installer.
 
 # Development
-For testing, you will need to build the project with the `Debug | Win32` configuration. After compiling, open up the Debug folder or start the application right in Visual Studio.
+For testing, you will need to build the project with the `Debug | Win32` configuration. After compiling, open up the Debug folder or start the application right in Visual Studio. You can build installers by compiling for `Release | Win32` and then opening up Inno Setup 6.43 or later and hitting either Ctrl+F9 or `Build > Compile` in the bar at the top of the window.
 
 ## This Is A Fork
 Please note that this project is a fork. It is continued development on WordPad based off the edition of WordPad packaged with Windows XP and earlier found hiding in the Microsoft VC++ Samples repo. You can check out the [VCSamples](https://github.com/microsoft/VCSamples) repo; the src was found in the [WordPad](https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/Visual%20C%2B%2B%202008%20Feature%20Pack/WordPad) section.
