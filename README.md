@@ -8,6 +8,9 @@ This is continued development of WordPad. It is based off of the better, older v
 - Pentium III or better
 
 Additionally, for development:
+- Windows 7 or later
+- Intel Core Duo or better
+- 4 GB or more of RAM
 - Visual Studio 2019
 - C++ Desktop Development workflow installed in VS
 - C++ MFC & ATL Libraries installed in VS
