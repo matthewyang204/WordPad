@@ -16,6 +16,7 @@
 #include "buttondi.h"
 #include "strings.h"
 #include "wordpad.h"
+#include "rr.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -47,8 +48,8 @@ CButtonDialog::CButtonDialog(LPCTSTR lpszText, LPCTSTR lpszCaption,
 	CWnd* pParentWnd) : CCSDialog()
 {
 
-	ASSERT(lpszText != NULL);
-	ASSERT(lpszCaption != NULL);
+	RRAssert(lpszText != NULL);
+	RRAssert(lpszCaption != NULL);
 	if (HIWORD(lpszText) == NULL)
 		VERIFY(m_strText.LoadString(LOWORD((UINT_PTR)lpszText)));
 	else
@@ -161,7 +162,7 @@ void CButtonDialog::AddButtons(LPCTSTR lpszButton)
 	{
 		BOOL bValidString;
 		bValidString = strButtons.LoadString(LOWORD((UINT_PTR)lpszButton));
-		ASSERT(bValidString);
+		RRAssert(bValidString);
 	}
 	else
 	{
@@ -226,7 +227,7 @@ BOOL CButtonDialog::OnCommand(WPARAM wParam, LPARAM /*lParam*/)
 
 INT_PTR CButtonDialog::DoModal()
 {
-	ASSERT(m_strArray.GetSize() != 0);
+	RRAssert(m_strArray.GetSize() != 0);
 	if (m_strArray.GetSize() == 0)
 		return (m_nCancel != -1) ? m_nCancel : 0;
 

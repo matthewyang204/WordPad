@@ -13,6 +13,8 @@
 /////////////////////////////////////////////////////////////////////////////
 // CButtonDialog dialog
 
+#include "rr.h"
+
 class CButtonDialog : public CCSDialog
 {
 // Construction
@@ -31,9 +33,9 @@ public:
 	void AddButton(CString& strButton) { m_strArray.Add(strButton);}
 	void AddButtons(LPCTSTR lpszButton);
 	void SetCancel(int nCancel)
-		{ ASSERT(nCancel < m_strArray.GetSize()); m_nCancel = nCancel;}
+		{ RRAssert(nCancel < m_strArray.GetSize()); m_nCancel = nCancel;}
 	void SetDefault(int nDef)
-		{ ASSERT(nDef < m_strArray.GetSize()); m_nDefButton = nDef;}
+		{ RRAssert(nDef < m_strArray.GetSize()); m_nDefButton = nDef;}
 	void FillInHeader(LPDLGTEMPLATE lpDlgTmp);
 
 // Overridables
