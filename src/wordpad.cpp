@@ -453,7 +453,7 @@ void CWordPadApp::LoadOptions()
 	{
 		RRAssert(nLen == sizeof(CRect));
 		memcpy(&m_rectPageMargin, pb, sizeof(CRect));
-		delete pb;
+		delete[] pb;
 	}
 	else
 		m_rectPageMargin.SetRect(1800, 1440, 1800, 1440);
