@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "wordpad.h"
 #include "TaskPane.h"
+#include "rr.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

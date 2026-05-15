@@ -26,6 +26,7 @@
 #include <winreg.h>
 
 #include "AppLookDlg.h"
+#include "rr.h"
 
 extern BOOL AFXAPI AfxFullPath(LPTSTR lpszPathOut, LPCTSTR lpszFileIn);
 static BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols,

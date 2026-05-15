@@ -12,6 +12,7 @@
 // Microsoft Foundation Classes product.
 
 #include "stdafx.h"
+#include "rr.h"
 #include "wordpad.h"
 #include "multconv.h"
 #include "mswd6_32.h"

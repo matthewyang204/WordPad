@@ -6,6 +6,7 @@
 #include "wordpad.h"
 #include "AppLookDlg.h"
 #include "mainfrm.h"
+#include "rr.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

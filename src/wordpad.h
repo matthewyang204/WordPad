@@ -19,6 +19,7 @@
 #include "splash.h"
 #include "options.h"
 #include "afxtempl.h"
+#include "rr.h"
 
 #define WPM_BARSTATE WM_USER
 

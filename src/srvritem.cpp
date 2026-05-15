@@ -12,6 +12,7 @@
 // Microsoft Foundation Classes product.
 
 #include "stdafx.h"
+#include "rr.h"
 #include "wordpad.h"
 #include "wordpdoc.h"
 #include "wordpvw.h"

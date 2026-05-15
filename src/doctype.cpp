@@ -12,6 +12,7 @@
 // Microsoft Foundation Classes product.
 
 #include "stdafx.h"
+#include "rr.h"
 #include "resource.h"
 #include "strings.h"
 

@@ -12,6 +12,7 @@
 // Microsoft Foundation Classes product.
 
 #include "stdafx.h"
+#include "rr.h"
 #include "ddxm.h"
 #include "wordpad.h"
 #include "resource.h"

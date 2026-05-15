@@ -11,6 +11,8 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#include "rr.h"
+
 #ifndef __RULER_H__
 #define __RULER_H__
 
