@@ -15,5 +15,5 @@ void RRAssertFail(const char* expr, const char* file, int line)
     {
         DebugBreak();
     }
-    abort();
+    ExitProcess(1);
 }
