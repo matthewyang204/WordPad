@@ -112,7 +112,7 @@ HGLOBAL CConverter::StringToHGLOBAL(LPCSTR pstr)
 		if (hMem != NULL)
 		{
 			char* p = (char*) GlobalLock(hMem);
-			ASSERT(p != NULL);
+			RRAssert(p != NULL);
 			if (p != NULL)
 				lstrcpyA(p, pstr);
 			GlobalUnlock(hMem);
@@ -146,7 +146,7 @@ CConverter::CConverter(LPCSTR pszLibName, CFrameWnd* pWnd) : CTrackFile(pWnd)
 	else
 	{
 		LoadFunctions();
-		ASSERT(m_pInitConverter != NULL);
+		RRAssert(m_pInitConverter != NULL);
 		if (m_pInitConverter != NULL)
 		{
 			CString str = AfxGetAppName();
@@ -213,13 +213,13 @@ void CConverter::WaitForBuffer()
 
 UINT CConverter::ConverterThread(LPVOID)
 {
-	ASSERT(m_pThis != NULL);
+	RRAssert(m_pThis != NULL);
 	if (m_pThis != NULL)
 	{
 		HRESULT hRes = OleInitialize(NULL);
 		if (hRes != S_OK && hRes != S_FALSE)
 		{
-			ASSERT(FALSE);
+			RRAssert(FALSE);
 		}
 		m_pThis->DoConversion();
 		OleUninitialize();
@@ -241,7 +241,7 @@ BOOL CConverter::IsFormatCorrect(LPCTSTR pszFileName)
 
 	HGLOBAL hFileName = StringToHGLOBAL(buf);
 	HGLOBAL hDesc = GlobalAlloc(GHND, 256);
-	ASSERT(hDesc != NULL);
+	RRAssert(hDesc != NULL);
 	nRet = m_pIsFormatCorrect(hFileName, hDesc);
 	GlobalFree(hDesc);
 	GlobalFree(hFileName);
@@ -251,7 +251,7 @@ BOOL CConverter::IsFormatCorrect(LPCTSTR pszFileName)
 // static callback function
 int CALLBACK CConverter::WriteOutStatic(int cch, int nPercentComplete)
 {
-	ASSERT(m_pThis != NULL);
+	RRAssert(m_pThis != NULL);
 	if (m_pThis != NULL)
 	{
 		return m_pThis->WriteOut(cch, nPercentComplete);
@@ -262,7 +262,7 @@ int CALLBACK CConverter::WriteOutStatic(int cch, int nPercentComplete)
 
 int CALLBACK CConverter::WriteOut(int cch, int nPercentComplete)
 {
-	ASSERT(m_hBuff != NULL);
+	RRAssert(m_hBuff != NULL);
 	m_nPercent = nPercentComplete;
 	if (m_hBuff == NULL)
 		return -9;
@@ -279,7 +279,7 @@ int CALLBACK CConverter::WriteOut(int cch, int nPercentComplete)
 
 int CALLBACK CConverter::ReadInStatic(int /*flags*/, int nPercentComplete)
 {
-	ASSERT(m_pThis != NULL);
+	RRAssert(m_pThis != NULL);
 	if (m_pThis != NULL)
 	{
 		return m_pThis->ReadIn(nPercentComplete);
@@ -290,7 +290,7 @@ int CALLBACK CConverter::ReadInStatic(int /*flags*/, int nPercentComplete)
 
 int CALLBACK CConverter::ReadIn(int /*nPercentComplete*/)
 {
-	ASSERT(m_hBuff != NULL);
+	RRAssert(m_hBuff != NULL);
 	if (m_hBuff == NULL)
 		return -8;
 
@@ -308,16 +308,16 @@ BOOL CConverter::DoConversion()
 //  m_dwLength = 0; // prevent Read/Write from displaying
 	m_nPercent = 0;
 
-	ASSERT(m_hBuff != NULL);
-	ASSERT(m_pThis != NULL);
+	RRAssert(m_hBuff != NULL);
+	RRAssert(m_pThis != NULL);
 	HGLOBAL hDesc = StringToHGLOBAL("");
 	HGLOBAL hSubset = StringToHGLOBAL("");
 
 	int nRet;
 	if (m_bForeignToRtf)
 	{
-		ASSERT(m_pForeignToRtf != NULL);
-		ASSERT(m_hFileName != NULL);
+		RRAssert(m_pForeignToRtf != NULL);
+		RRAssert(m_hFileName != NULL);
 		nRet = m_pForeignToRtf(m_hFileName, NULL, m_hBuff, hDesc, hSubset,
 			(LPFNOUT)WriteOutStatic);
 		// wait for next CConverter::Read to come through
@@ -326,8 +326,8 @@ BOOL CConverter::DoConversion()
 	}
 	else
 	{
-		ASSERT(m_pRtfToForeign != NULL);
-		ASSERT(m_hFileName != NULL);
+		RRAssert(m_pRtfToForeign != NULL);
+		RRAssert(m_hFileName != NULL);
 		nRet = m_pRtfToForeign(m_hFileName, NULL, m_hBuff, hDesc,
 			(LPFNIN)ReadInStatic);
 		// don't need to wait for m_hEventConv
@@ -401,13 +401,13 @@ BOOL CConverter::Open(LPCTSTR pszFileName, UINT nOpenFlags,
 	//create the converter thread and create the events
 
 	CharToOemA(buf, buf);
-	ASSERT(m_hFileName == NULL);
+	RRAssert(m_hFileName == NULL);
 	m_hFileName = StringToHGLOBAL(buf);
 
 	m_pThis = this;
 	m_bDone = FALSE;
 	m_hBuff = GlobalAlloc(GHND, BUFFSIZE);
-	ASSERT(m_hBuff != NULL);
+	RRAssert(m_hBuff != NULL);
 
 	AfxBeginThread(ConverterThread, this, THREAD_PRIORITY_NORMAL, 0, 0, &sa);
 
@@ -419,7 +419,7 @@ BOOL CConverter::Open(LPCTSTR pszFileName, UINT nOpenFlags,
 
 UINT CConverter::Read(void FAR* lpBuf, UINT nCount)
 {
-	ASSERT(m_bForeignToRtf);
+	RRAssert(m_bForeignToRtf);
 	if (m_bDone)
 		return 0;
 	// if converter is done
@@ -440,7 +440,7 @@ UINT CConverter::Read(void FAR* lpBuf, UINT nCount)
 			if (m_bDone)
 				return nCount - cch;
 			m_pBuf = (BYTE*)GlobalLock(m_hBuff);
-			ASSERT(m_pBuf != NULL);
+			RRAssert(m_pBuf != NULL);
 		}
 		int nBytes = min(cch, m_nBytesAvail);
 		memcpy(pBuf, m_pBuf, nBytes);
@@ -455,7 +455,7 @@ UINT CConverter::Read(void FAR* lpBuf, UINT nCount)
 
 void CConverter::Write(const void FAR* lpBuf, UINT nCount)
 {
-	ASSERT(!m_bForeignToRtf);
+	RRAssert(!m_bForeignToRtf);
 
 	m_nBytesWritten += nCount;
 	while (nCount != 0)
@@ -467,7 +467,7 @@ void CConverter::Write(const void FAR* lpBuf, UINT nCount)
 		m_nBytesAvail = min(nCount, BUFFSIZE);
 		nCount -= m_nBytesAvail;
 		BYTE* pBuf = (BYTE*)GlobalLock(m_hBuff);
-		ASSERT(pBuf != NULL);
+		RRAssert(pBuf != NULL);
 		memcpy(pBuf, lpBuf, m_nBytesAvail);
 		GlobalUnlock(m_hBuff);
 		SetEvent(m_hEventConv);

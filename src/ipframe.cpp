@@ -177,7 +177,7 @@ BOOL CInPlaceFrame::CreateMenuBar()
 	CString str;
 	BOOL bValidString;
 	bValidString = str.LoadString(IDS_TITLE_MENUBAR);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 
 	m_wndMenuBar.SetWindowText(str);
 	return TRUE;
@@ -186,7 +186,7 @@ BOOL CInPlaceFrame::CreateMenuBar()
 BOOL CInPlaceFrame::CreateToolBar(CWnd* pWndFrame)
 {
 	// Create toolbar on client's frame window
-	ASSERT(m_wndToolBar.m_hWnd == NULL);
+	RRAssert(m_wndToolBar.m_hWnd == NULL);
 	int nPen = GetSystemMetrics(SM_PENWINDOWS) ? NUM_PEN_TOGGLE :
 		NUM_PEN_ITEMS;
 
@@ -203,7 +203,7 @@ BOOL CInPlaceFrame::CreateToolBar(CWnd* pWndFrame)
 	CString str;
 	BOOL bValidString;
 	bValidString = str.LoadString(IDS_TITLE_TOOLBAR);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 
 	m_wndToolBar.SetWindowText(str);
 	return TRUE;
@@ -211,7 +211,7 @@ BOOL CInPlaceFrame::CreateToolBar(CWnd* pWndFrame)
 
 BOOL CInPlaceFrame::CreateFormatBar(CWnd* pWndFrame)
 {
-	ASSERT(m_wndFormatBar.m_hWnd == NULL);
+	RRAssert(m_wndFormatBar.m_hWnd == NULL);
 	m_wndFormatBar.m_hWndOwner = m_hWnd;
 	
 	if (!m_wndFormatBar.Create(pWndFrame, WS_CHILD|WS_VISIBLE|CBRS_TOP|
@@ -228,7 +228,7 @@ BOOL CInPlaceFrame::CreateFormatBar(CWnd* pWndFrame)
 	CString str;
 	BOOL bValidString;
 	bValidString = str.LoadString(IDS_TITLE_FORMATBAR);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 
 	m_wndFormatBar.SetWindowText(str);
 	return TRUE;
@@ -325,7 +325,7 @@ LRESULT CInPlaceFrame::OnResizeChild(WPARAM /*wParam*/, LPARAM lParam)
 	if (pDoc == NULL)
 		return 0;
 
-	ASSERT(pDoc->IsKindOf(RUNTIME_CLASS(CWordPadDoc)));
+	RRAssert(pDoc->IsKindOf(RUNTIME_CLASS(CWordPadDoc)));
 
 	// get new rect and parent
 	CRect rectNew;
@@ -348,7 +348,7 @@ LRESULT CInPlaceFrame::OnResizeChild(WPARAM /*wParam*/, LPARAM lParam)
 
 	// adjust the new rectangle for the current control bars
 	CWnd* pLeftOver = GetDlgItem(AFX_IDW_PANE_FIRST);
-	ASSERT(pLeftOver != NULL);
+	RRAssert(pLeftOver != NULL);
 	if (pLeftOver != NULL)
 	{
 		CRect rectCur = m_rectPos;
@@ -370,7 +370,7 @@ LRESULT CInPlaceFrame::OnBarState(WPARAM wParam, LPARAM lParam)
 	if (wParam == 0)
 	{
 		GetDockState(theApp.GetDockState(RD_EMBEDDED));
-		ASSERT(m_pMainFrame != NULL);
+		RRAssert(m_pMainFrame != NULL);
 		if (m_pMainFrame != NULL)
 		{
 			m_pMainFrame->GetDockState(theApp.GetDockState(RD_EMBEDDED, FALSE));

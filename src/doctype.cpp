@@ -52,7 +52,7 @@ DocType doctypes[NUM_DOC_TYPES] =
 
 CString DocType::GetString(int nID)
 {
-	ASSERT(idStr != NULL);
+	RRAssert(idStr != NULL);
 	CString str;
 	VERIFY(str.LoadString(idStr));
 	CString strSub;
@@ -116,7 +116,7 @@ static BOOL IsWord6(LPCTSTR pszPathName)
 int GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 {
 	CFile file;
-	ASSERT(pszPathName != NULL);
+	RRAssert(pszPathName != NULL);
 
 	if (!file.Open(pszPathName, CFile::modeRead | CFile::shareDenyWrite, &fe))
 		return -1;
@@ -196,7 +196,7 @@ void ScanForConverters()
 
 BOOL IsDLLInPath(LPCSTR lpszName)
 {
-	ASSERT(lpszName != NULL);
+	RRAssert(lpszName != NULL);
 	if (lpszName != NULL)
 	{
 		OFSTRUCT ofs;
@@ -213,7 +213,7 @@ CString GetExtFromType(int nDocType)
 	CString str = doctypes[nDocType].GetString(DOCTYPE_EXT);
 	if (!str.IsEmpty())
 	{
-		ASSERT(str[1] == '.');
+		RRAssert(str[1] == '.');
 		return str.Right(str.GetLength()-1);
 	}
 	return str;
@@ -235,7 +235,7 @@ int GetTypeFromIndex(int nIndex, BOOL bOpen)
 			nCnt++;
 		}
 	}
-	ASSERT(FALSE);
+	RRAssert(FALSE);
 	return -1;
 }
 

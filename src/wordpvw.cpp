@@ -204,7 +204,7 @@ void CWordPadView::WrapChanged()
 {
 	CWaitCursor wait;
 	CFrameWnd* pFrameWnd = GetParentFrame();
-	ASSERT(pFrameWnd != NULL);
+	RRAssert(pFrameWnd != NULL);
 	if (pFrameWnd)
 	{
 		pFrameWnd->SetMessageText(IDS_FORMATTING);
@@ -234,7 +234,7 @@ void CWordPadView::SetUpdateTimer()
 void CWordPadView::DeleteContents()
 {
 	ASSERT_VALID(this);
-	ASSERT(m_hWnd != NULL);
+	RRAssert(m_hWnd != NULL);
 	CRichEditView::DeleteContents();
 	SetDefaultFont(IsTextType(GetDocument()->m_nNewDocType));
 }
@@ -242,7 +242,7 @@ void CWordPadView::DeleteContents()
 void CWordPadView::SetDefaultFont(BOOL bText)
 {
 	ASSERT_VALID(this);
-	ASSERT(m_hWnd != NULL);
+	RRAssert(m_hWnd != NULL);
 	m_bSyncCharFormat = m_bSyncParaFormat = TRUE;
 	WPD_CHARFORMAT* pCharFormat = bText ? &m_defTextCharFormat : &m_defCharFormat;
 	// set the default character format -- the FALSE makes it the default
@@ -444,7 +444,7 @@ void CWordPadView::GetDefaultFont(CCharFormat& cf, UINT nFontNameID)
 	USES_CONVERSION;
 	CString strDefFont;
 	VERIFY(strDefFont.LoadString(nFontNameID));
-	ASSERT(cf.cbSize == sizeof(WPD_CHARFORMAT));
+	RRAssert(cf.cbSize == sizeof(WPD_CHARFORMAT));
 	cf.dwMask = CFM_BOLD|CFM_ITALIC|CFM_UNDERLINE|CFM_STRIKEOUT|CFM_SIZE|
 		CFM_COLOR|CFM_OFFSET|CFM_PROTECTED;
 	cf.dwEffects = CFE_AUTOCOLOR;
@@ -453,7 +453,7 @@ void CWordPadView::GetDefaultFont(CCharFormat& cf, UINT nFontNameID)
 	cf.crTextColor = RGB(0, 0, 0);
 	cf.bCharSet = 0;
 	cf.bPitchAndFamily = DEFAULT_PITCH | FF_DONTCARE;
-	ASSERT(strDefFont.GetLength() < LF_FACESIZE);
+	RRAssert(strDefFont.GetLength() < LF_FACESIZE);
 	lstrcpyn(cf.szFaceName, strDefFont, LF_FACESIZE);
 	cf.dwMask |= CFM_FACE;
 }
@@ -523,14 +523,14 @@ void CWordPadView::OnEditChange()
 void CWordPadView::OnDestroy()
 {
 	POSITION pos = theApp.m_listPrinterNotify.Find(m_hWnd);
-	ASSERT(pos != NULL);
+	RRAssert(pos != NULL);
 	theApp.m_listPrinterNotify.RemoveAt(pos);
 
 	CRichEditView::OnDestroy();
 
 	if (m_uTimerID != 0) // if outstanding timer kill it
 		OnTimer(m_uTimerID);
-	ASSERT(m_uTimerID == 0);
+	RRAssert(m_uTimerID == 0);
 }
 
 void CWordPadView::CalcWindowRect(LPRECT lpClientRect, UINT nAdjustType)
@@ -680,7 +680,7 @@ BOOL CWordPadView::PasteNative(LPDATAOBJECT lpdataobj)
 	LPLOCKBYTES lpLockBytes;
 	if (FAILED(::CreateILockBytesOnHGlobal(NULL, TRUE, &lpLockBytes)))
 		return FALSE;
-	ASSERT(lpLockBytes != NULL);
+	RRAssert(lpLockBytes != NULL);
 	if (lpLockBytes == NULL)
 		return FALSE;
 
@@ -690,7 +690,7 @@ BOOL CWordPadView::PasteNative(LPDATAOBJECT lpdataobj)
 	if (FAILED(hr))
 		return FALSE;
 
-	ASSERT(stgMedium.pstg != NULL);
+	RRAssert(stgMedium.pstg != NULL);
 	CLSID clsid;
 	BOOL bRes = FALSE; //let richedit do what it wants
 	if (SUCCEEDED(lpdataobj->GetDataHere(&etc, &stgMedium)) &&
@@ -759,7 +759,7 @@ void CWordPadView::OnPenLens()
 	if (hLib == NULL)
 		return;
 	PCWPROC pCorrectWriting = (PCWPROC)GetProcAddress(hLib, "CorrectWriting");
-	ASSERT(pCorrectWriting != NULL);
+	RRAssert(pCorrectWriting != NULL);
 	if (pCorrectWriting != NULL)
 	{
 		CHARRANGE cr;
@@ -989,7 +989,7 @@ void CWordPadView::OnFontname()
 
 	const CMFCFontInfo* pDesc = pSrcCombo->GetFontDesc ();
 	ASSERT_VALID (pDesc);
-	ASSERT(pDesc->m_strName.GetLength() < LF_FACESIZE);
+	RRAssert(pDesc->m_strName.GetLength() < LF_FACESIZE);
 
 	lstrcpyn(cf.szFaceName, pDesc->m_strName, LF_FACESIZE);
 

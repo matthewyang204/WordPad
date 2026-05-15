@@ -84,7 +84,7 @@ void CBigIcon::SizeToContent()
 void CBigIcon::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	CDC* pDC = CDC::FromHandle(lpDrawItemStruct->hDC);
-	ASSERT(pDC != NULL);
+	RRAssert(pDC != NULL);
 	if (pDC != NULL)
 	{
 		CRect rect;

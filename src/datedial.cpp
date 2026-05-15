@@ -16,6 +16,7 @@
 #include "datedial.h"
 #include "helpids.h"
 #include <winnls.h>
+#include "rr.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -88,7 +89,7 @@ BOOL CDateDialog::OnInitDialog()
 
 BOOL CALLBACK CDateDialog::DateFmtEnumProc(LPTSTR lpszFormatString)
 {
-	ASSERT(m_pListBox != NULL);
+	RRAssert(m_pListBox != NULL);
 	if (m_pListBox == NULL)
 		return FALSE;
 
@@ -105,7 +106,7 @@ BOOL CALLBACK CDateDialog::DateFmtEnumProc(LPTSTR lpszFormatString)
 
 BOOL CALLBACK CDateDialog::TimeFmtEnumProc(LPTSTR lpszFormatString)
 {
-	ASSERT(m_pListBox != NULL);
+	RRAssert(m_pListBox != NULL);
 	if (m_pListBox == NULL)
 		return FALSE;
 

@@ -39,7 +39,7 @@ CRulerItem::CRulerItem(UINT nBitmapID)
 		m_hbmMask = ::LoadBitmap(
 			AfxFindResourceHandle(MAKEINTRESOURCE(nBitmapID+1), RT_BITMAP),
 			MAKEINTRESOURCE(nBitmapID+1));
-		ASSERT(m_hbmMask != NULL);
+		RRAssert(m_hbmMask != NULL);
 		VERIFY(LoadMaskedBitmap(MAKEINTRESOURCE(nBitmapID)));
 		BITMAP bm;
 		::GetObject(m_hbm, sizeof(BITMAP), &bm);
@@ -57,7 +57,7 @@ CRulerItem::~CRulerItem()
 
 BOOL CRulerItem::LoadMaskedBitmap(LPCTSTR lpszResourceName)
 {
-	ASSERT(lpszResourceName != NULL);
+	RRAssert(lpszResourceName != NULL);
 	if (lpszResourceName == NULL)
 		return FALSE;
 
@@ -103,7 +103,7 @@ void CRulerItem::DrawFocusLine()
 	if (GetHorzPosTwips() != 0)
 	{
 		m_rcTrack.left = m_rcTrack.right = GetHorzPosPix();
-		ASSERT(m_pDC != NULL);
+		RRAssert(m_pDC != NULL);
 		int nLeft = m_rcTrack.left + 16;
 		m_pDC->MoveTo(nLeft, m_rcTrack.top);
 		m_pDC->LineTo(nLeft, m_rcTrack.bottom);
@@ -124,7 +124,7 @@ void CRulerItem::SetTrack(BOOL b)
 	if (m_bTrack)
 	{
 		CWordPadView* pView = (CWordPadView*)m_pRuler->GetView();
-		ASSERT(pView != NULL);
+		RRAssert(pView != NULL);
 		if (pView != NULL)
 		{
 			pView->GetClientRect(&m_rcTrack);
@@ -391,7 +391,7 @@ void CRulerBar::OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL /*bDisableIfNoHndler*
 	if (m_pSelItem == NULL) // only update if not in middle of dragging
 	{
 		CWordPadView* pView = (CWordPadView*)GetView();
-		ASSERT(pView != NULL);
+		RRAssert(pView != NULL);
 		if (pView != NULL)
 		{
 			Update(pView->GetPaperSize(), pView->GetMargins());
@@ -418,7 +418,7 @@ void CRulerBar::OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL /*bDisableIfNoHndler*
 
 CSize CRulerBar::GetBaseUnits()
 {
-	ASSERT(fnt.GetSafeHandle() != NULL);
+	RRAssert(fnt.GetSafeHandle() != NULL);
 	CFont* pFont = theApp.m_dcScreen.SelectObject(&fnt);
 	TEXTMETRIC tm;
 	VERIFY(theApp.m_dcScreen.GetTextMetrics(&tm) == TRUE);
@@ -486,7 +486,7 @@ BOOL CRulerBar::Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID)
 
 CSize CRulerBar::CalcFixedLayout(BOOL bStretch, BOOL bHorz)
 {
-	ASSERT(bHorz);
+	RRAssert(bHorz);
 	CSize m_size = CPane::CalcFixedLayout(bStretch, bHorz);
 	CRect rectSize;
 	rectSize.SetRectEmpty();
@@ -497,7 +497,7 @@ CSize CRulerBar::CalcFixedLayout(BOOL bStretch, BOOL bHorz)
 
 void CRulerBar::Update(const WPD_PARAFORMAT& pf)
 {
-	ASSERT(pf.cTabCount <= MAX_TAB_STOPS);
+	RRAssert(pf.cTabCount <= MAX_TAB_STOPS);
 
 	m_leftmargin.SetHorzPosTwips((int)(pf.dxStartIndent + pf.dxOffset));
 	m_indent.SetHorzPosTwips((int)pf.dxStartIndent);
@@ -816,7 +816,7 @@ void CRulerBar::OnLButtonUp(UINT nFlags, CPoint point)
 	m_pSelItem->SetTrack(FALSE);
 	ReleaseCapture();
 	CWordPadView* pView = (CWordPadView*)GetView();
-	ASSERT(pView != NULL);
+	RRAssert(pView != NULL);
 	if (pView != NULL)
 	{
 		WPD_PARAFORMAT& pf = pView->GetParaFormatSelection();
@@ -832,7 +832,7 @@ void CRulerBar::OnMouseMove(UINT nFlags, CPoint point)
 // use ::GetCapture to avoid creating temporaries
 	if (::GetCapture() != m_hWnd)
 		return;
-	ASSERT(m_pSelItem != NULL);
+	RRAssert(m_pSelItem != NULL);
 	CRect rc(0,0, XTwipsToRuler(PrintWidth() + m_rectMargin.right), HEIGHT);
 	RulerToClient(rc);
 	BOOL bOnRuler = rc.PtInRect(point);

@@ -26,10 +26,10 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 static CSize GetBaseUnits(CFont* pFont)
 {
-	ASSERT(pFont != NULL);
+	RRAssert(pFont != NULL);
 	if (pFont != NULL)
 	{
-		ASSERT(pFont->GetSafeHandle() != NULL);
+		RRAssert(pFont->GetSafeHandle() != NULL);
 		pFont = theApp.m_dcScreen.SelectObject(pFont);
 		TEXTMETRIC tm;
 		VERIFY(theApp.m_dcScreen.GetTextMetrics(&tm));
@@ -238,7 +238,7 @@ CMFCColorMenuButton* CFormatBar::CreateColorButton ()
 	if (m_palColorPicker.GetSafeHandle () == NULL)
 	{
 		m_nNumColours = sizeof (crColours)/sizeof(ColourTableEntry);
-		ASSERT(m_nNumColours <= MAX_COLOURS);
+		RRAssert(m_nNumColours <= MAX_COLOURS);
 		if (m_nNumColours > MAX_COLOURS)
 			m_nNumColours = MAX_COLOURS;
 
@@ -289,7 +289,7 @@ CMFCToolBarMenuButton* CFormatBar::CreateBorderTypeButton ()
 
 	CMFCToolBarMenuButton* pBorderType = NULL;
 	CMenu* pPopup = menu.GetSubMenu(0);
-	ASSERT(pPopup != NULL);
+	RRAssert(pPopup != NULL);
 	if (pPopup != NULL)
 	{
 		pBorderType = new CMFCToolBarMenuButton (ID_BORDER_1, pPopup->GetSafeHmenu (), GetCmdMgr ()->GetCmdImage  (ID_BORDER_1, FALSE), _T("Borders"));

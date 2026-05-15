@@ -64,7 +64,7 @@ void COptionSheet::SetPageButtons(CDocOptPage& page, CDockState& ds)
 		for (int i = 0;i < ds.m_arrBarInfo.GetSize(); i++)
 		{
 			CControlBarInfo* pInfo = (CControlBarInfo*)ds.m_arrBarInfo[i];
-			ASSERT(pInfo != NULL);
+			RRAssert(pInfo != NULL);
 			if (pInfo)
 			{
 				switch (pInfo->m_nBarID)
@@ -92,7 +92,7 @@ void COptionSheet::SetState(CDocOptPage& page, CDockState& ds)
 	for (int i = 0;i < ds.m_arrBarInfo.GetSize(); i++)
 	{
 		CControlBarInfo* pInfo = (CControlBarInfo*)ds.m_arrBarInfo[i];
-		ASSERT(pInfo != NULL);
+		RRAssert(pInfo != NULL);
 		if (pInfo)
 		{
 			switch (pInfo->m_nBarID)

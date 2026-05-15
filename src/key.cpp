@@ -30,7 +30,7 @@ void CKey::Close()
 		LONG lRes = RegCloseKey(m_hKey);
 		if (lRes != ERROR_SUCCESS)
 		{
-			ASSERT(FALSE);
+			RRAssert(FALSE);
 		}
 		m_hKey = NULL;
 	}
@@ -38,7 +38,7 @@ void CKey::Close()
 
 BOOL CKey::Create(HKEY hKey, LPCTSTR lpszKeyName)
 {
-	ASSERT(hKey != NULL);
+	RRAssert(hKey != NULL);
 	if (hKey == NULL)
 		return FALSE;
 
@@ -47,7 +47,7 @@ BOOL CKey::Create(HKEY hKey, LPCTSTR lpszKeyName)
 
 BOOL CKey::Open(HKEY hKey, LPCTSTR lpszKeyName)
 {
-	ASSERT(hKey != NULL);
+	RRAssert(hKey != NULL);
 	if (hKey == NULL)
 		return FALSE;
 
@@ -56,7 +56,7 @@ BOOL CKey::Open(HKEY hKey, LPCTSTR lpszKeyName)
 
 BOOL CKey::SetStringValue(LPCTSTR lpszValue, LPCTSTR lpszValueName)
 {
-	ASSERT(m_hKey != NULL);
+	RRAssert(m_hKey != NULL);
 	if (m_hKey == NULL)
 		return FALSE;
 
@@ -65,7 +65,7 @@ BOOL CKey::SetStringValue(LPCTSTR lpszValue, LPCTSTR lpszValueName)
 
 BOOL CKey::GetStringValue(CString& str, LPCTSTR lpszValueName)
 {
-	ASSERT(m_hKey != NULL);
+	RRAssert(m_hKey != NULL);
 	if (m_hKey == NULL)
 		return FALSE;
 
@@ -75,10 +75,10 @@ BOOL CKey::GetStringValue(CString& str, LPCTSTR lpszValueName)
 	LONG lRes = RegQueryValueEx(m_hKey, (LPTSTR)lpszValueName, NULL, &dwType, NULL, &dw);
 	if (lRes == ERROR_SUCCESS)
 	{
-		ASSERT(dwType == REG_SZ);
+		RRAssert(dwType == REG_SZ);
 		LPTSTR lpsz = str.GetBufferSetLength(dw);
 		lRes = RegQueryValueEx(m_hKey, (LPTSTR)lpszValueName, NULL, &dwType, (BYTE*)lpsz, &dw);
-		ASSERT(lRes == ERROR_SUCCESS);
+		RRAssert(lRes == ERROR_SUCCESS);
 		str.ReleaseBuffer();
 		return TRUE;
 	}

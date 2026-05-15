@@ -44,7 +44,7 @@ CFormatTabDlg::CFormatTabDlg(WPD_PARAFORMAT& pf, CWnd* pParent /*=NULL*/)
 	if (m_pf.dwMask & PFM_TABSTOPS)
 	{
 		m_nCount = m_pf.cTabCount;
-		ASSERT(m_pf.cTabCount <= MAX_TAB_STOPS);
+		RRAssert(m_pf.cTabCount <= MAX_TAB_STOPS);
 		for (int i=0;i<m_pf.cTabCount;i++)
 			m_tabarray[i] = m_pf.rgxTabs[i];
 	}
@@ -102,7 +102,7 @@ void CFormatTabDlg::OnClickedClear()
 	}
 	else
 	{
-		ASSERT(nSel < m_nCount);
+		RRAssert(nSel < m_nCount);
 		RemoveTabFromArrayByIndex(nSel);
 		UpdateListBox();
 	}
@@ -199,7 +199,7 @@ void CFormatTabDlg::UpdateListBox()
 {
 	int i;
 	TCHAR szT[64];
-	ASSERT(m_nCount >= 0);
+	RRAssert(m_nCount >= 0);
 	m_comboBox.ResetContent();
 	for (i=0;i<m_nCount;i++)
 	{

@@ -30,7 +30,7 @@ void CDocOptions::SaveDockState(CDockState& ds, LPCTSTR lpszProfileName, LPCTSTR
 	ds.Serialize(ar);
 	ar.Close();
 	int nSize = (int) file.GetLength();
-	ASSERT(nSize < 4096);
+	RRAssert(nSize < 4096);
 	BYTE* p = new BYTE[nSize];
 	file.SeekToBegin();
 	file.Read(p, nSize);
@@ -51,7 +51,7 @@ void CDocOptions::LoadDockState(CDockState& ds, LPCTSTR lpszProfileName, LPCTSTR
 	UINT nLen = 0;
 	if (theApp.GetProfileBinary(lpszProfileName, lpszLayout, &p, &nLen))
 	{
-		ASSERT(nLen < 4096);
+		RRAssert(nLen < 4096);
 		CMemFile file;
 		file.Write(p, nLen);
 		file.SeekToBegin();

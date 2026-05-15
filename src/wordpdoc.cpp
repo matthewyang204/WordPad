@@ -185,7 +185,7 @@ BOOL CWordPadDoc::OnOpenDocument(LPCTSTR lpszPathName)
 void CWordPadDoc::Serialize(CArchive& ar)
 {
 	COleMessageFilter* pFilter = AfxOleGetMessageFilter();
-	ASSERT(pFilter != NULL);
+	RRAssert(pFilter != NULL);
 	if (pFilter != NULL)
 	{
 		pFilter->EnableBusyDialog(FALSE);
@@ -336,7 +336,7 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 		SetDocType(nType);
 		// Reset the title and change the document name
 		SetPathName(newName, TRUE);
-		ASSERT(m_strPathName == newName);       // must be set
+		RRAssert(m_strPathName == newName);       // must be set
 	}
 	else // SaveCopyAs
 	{
@@ -405,7 +405,7 @@ CLSID CWordPadDoc::GetClassID()
 
 void CWordPadDoc::SetDocType(int nNewDocType, BOOL bNoOptionChange)
 {
-	ASSERT(nNewDocType != -1);
+	RRAssert(nNewDocType != -1);
 	if (nNewDocType == m_nDocType)
 		return;
 
@@ -563,7 +563,7 @@ void CWordPadDoc::SaveState(int nType)
 	if (pView != NULL)
 	{
 		CFrameWnd* pFrame = pView->GetParentFrame();
-		ASSERT(pFrame != NULL);
+		RRAssert(pFrame != NULL);
 		if (pFrame != NULL)
 		{
 			// save current state
@@ -582,7 +582,7 @@ void CWordPadDoc::RestoreState(int nType)
 	if (pView != NULL)
 	{
 		CFrameWnd* pFrame = pView->GetParentFrame();
-		ASSERT(pFrame != NULL);
+		RRAssert(pFrame != NULL);
 		if (pFrame != NULL)
 		{
 			// set new state

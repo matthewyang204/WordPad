@@ -87,7 +87,7 @@ public:
 
 // Set
 	void SetUnits(int n)
-	{ ASSERT(n>=0 && n <m_nPrimaryNumUnits); m_nUnits = n; }
+	{ RRAssert(n>=0 && n <m_nPrimaryNumUnits); m_nUnits = n; }
 
 // Operations
 	void RegisterFormats();

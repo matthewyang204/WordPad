@@ -25,7 +25,7 @@ extern CLIPFORMAT cfRTF;
 CEmbeddedItem::CEmbeddedItem(CWordPadDoc* pContainerDoc, int nBeg, int nEnd)
 	: COleServerItem(pContainerDoc, TRUE)
 {
-	ASSERT(pContainerDoc != NULL);
+	RRAssert(pContainerDoc != NULL);
 	ASSERT_VALID(pContainerDoc);
 	m_nBeg = nBeg;
 	m_nEnd = nEnd;
@@ -41,7 +41,7 @@ CWordPadView* CEmbeddedItem::GetView() const
 
 	CWordPadView* pView = (CWordPadView*)pDoc->GetNextView(pos);
 	ASSERT_VALID(pView);
-	ASSERT(pView->IsKindOf(RUNTIME_CLASS(CWordPadView)));
+	RRAssert(pView->IsKindOf(RUNTIME_CLASS(CWordPadView)));
 	return pView;
 }
 
@@ -49,7 +49,7 @@ void CEmbeddedItem::Serialize(CArchive& ar)
 {
 	if (m_lpRichDataObj != NULL)
 	{
-		ASSERT(ar.IsStoring());
+		RRAssert(ar.IsStoring());
 		FORMATETC etc = {NULL, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL};
 		etc.cfFormat = (CLIPFORMAT)cfRTF;
 		STGMEDIUM stg;
@@ -61,7 +61,7 @@ void CEmbeddedItem::Serialize(CArchive& ar)
 				ar.Write(p, (UINT)GlobalSize(stg.hGlobal));
 				GlobalUnlock(stg.hGlobal);
 			}
-			ASSERT(stg.tymed == TYMED_HGLOBAL);
+			RRAssert(stg.tymed == TYMED_HGLOBAL);
 			ReleaseStgMedium(&stg);
 		}
 	}
@@ -125,7 +125,7 @@ BOOL CEmbeddedItem::OnDrawEx(CDC* pDC, CSize& rSize, BOOL bOutput)
 	CRect rectOut = rect; // don't pass rect because it will get clobbered
 	if (bOutput)
 		pView->PrintInsideRect(pDC, rectOut, m_nBeg, m_nEnd, TRUE);
-	ASSERT(rectOut.right == rect.right);
+	RRAssert(rectOut.right == rect.right);
 
 	// adjust for border (rect.left is already adjusted)
 	if (pView->GetStyle() & WS_HSCROLL)

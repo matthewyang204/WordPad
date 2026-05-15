@@ -60,7 +60,7 @@ CUnit(1440, 180,        720,    1440,       90,         IDS_INCH4_ABBREV,   FALS
 
 static UINT DoRegistry(LPVOID lpv)
 {
-	ASSERT(lpv != NULL);
+	RRAssert(lpv != NULL);
 	if (lpv != NULL)
 	{
 		((CWordPadApp*)lpv)->UpdateRegistry();
@@ -329,7 +329,7 @@ BOOL CWordPadApp::IsDocOpen(LPCTSTR lpszFileName)
 	TCHAR szPath[_MAX_PATH];
 	AfxFullPath(szPath, lpszFileName);
 	ATOM atom = GlobalAddAtom(szPath);
-	ASSERT(atom != NULL);
+	RRAssert(atom != NULL);
 	if (atom == NULL)
 		return FALSE;
 	EnumWindows(StaticEnumProc, (LPARAM)&atom);
@@ -347,7 +347,7 @@ BOOL CALLBACK CWordPadApp::StaticEnumProc(HWND hWnd, LPARAM lParam)
 		return TRUE;
 
 	ATOM* pAtom = (ATOM*)lParam;
-	ASSERT(pAtom != NULL);
+	RRAssert(pAtom != NULL);
 	DWORD_PTR dw = NULL;
 	::SendMessageTimeout(hWnd, m_nOpenMsg, NULL, (LPARAM)*pAtom,
 		SMTO_ABORTIFHUNG, 500, &dw);
@@ -385,7 +385,7 @@ CDocOptions& CWordPadApp::GetDocOptions(int nDocType)
 		case RD_EMBEDDED:
 			return m_optionsIP;
 	}
-	ASSERT(FALSE);
+	RRAssert(FALSE);
 	return m_optionsNull;
 }
 
@@ -450,7 +450,7 @@ void CWordPadApp::LoadOptions()
 
 	if (GetProfileBinary(szSection, szPageMargin, &pb, &nLen))
 	{
-		ASSERT(nLen == sizeof(CRect));
+		RRAssert(nLen == sizeof(CRect));
 		memcpy(&m_rectPageMargin, pb, sizeof(CRect));
 		delete pb;
 	}
@@ -470,7 +470,7 @@ void CWordPadApp::LoadAbbrevStrings()
 	{
 		BOOL bValidString;
 		bValidString = m_units[i].m_strAbbrev.LoadString(m_units[i].m_nAbbrevID);
-		ASSERT(bValidString);
+		RRAssert(bValidString);
 	}
 }
 
@@ -503,7 +503,7 @@ BOOL CWordPadApp::ParseMeasurement(LPTSTR buf, int& lVal)
 
 void CWordPadApp::PrintTwips(TCHAR* buf, int nValue, int nDec)
 {
-	ASSERT(nDec == 2);
+	RRAssert(nDec == 2);
 	int div = GetTPU();
 	int lval = nValue;
 	BOOL bNeg = FALSE;
@@ -554,11 +554,11 @@ void CWordPadApp::OnAppAbout()
 
 	CString strTitle;
 	bValidString = strTitle.LoadString(AFX_IDS_APP_TITLE);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 
 	CString strInfo;
 	bValidString = strInfo.LoadString (IDS_ABOUT_INFO);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 
 	ShellAbout(m_pMainWnd->GetSafeHwnd(), strTitle, strInfo, LoadIcon(IDR_MAINFRAME));
 }
@@ -634,7 +634,7 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle,
 			nIndex = GetIndexFromType(RD_DEFAULT, bOpenFileDialog);
 		if (nIndex == -1)
 			nIndex = GetIndexFromType(RD_NATIVE, bOpenFileDialog);
-		ASSERT(nIndex != -1);
+		RRAssert(nIndex != -1);
 		nIndex++;
 	}
 	dlgFile.m_ofn.nFilterIndex = nIndex;
@@ -657,7 +657,7 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle,
 		if (pType != NULL)
 		{
 			int nIndex2 = (int)dlgFile.m_ofn.nFilterIndex - 1;
-			ASSERT(nIndex2 >= 0);
+			RRAssert(nIndex2 >= 0);
 			*pType = GetTypeFromIndex(nIndex2, bOpenFileDialog);
 		}
 	}
@@ -816,7 +816,7 @@ void CWordPadApp::UpdateRegistry()
 		CDocTemplate::fileNewName))
 		strLocalShortName = strLocalServerName; // use long name
 
-	ASSERT(strServerName.Find(' ') == -1);  // no spaces allowed
+	RRAssert(strServerName.Find(' ') == -1);  // no spaces allowed
 
 	::StringFromCLSID(clsid, &lpszClassID);
 	ASSERT (lpszClassID != NULL);
@@ -849,15 +849,15 @@ void CWordPadApp::UpdateRegistry()
 		(LPCTSTR*)rglpszDocExtRegister, (LPCTSTR*)rglpszDocRegister, 1);
 
 	// free memory for class ID
-	ASSERT(lpszClassID != NULL);
+	RRAssert(lpszClassID != NULL);
 	CoTaskMemFree(lpszClassID);
 }
 
 BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols,
 	BOOL bReplace)
 {
-	ASSERT(rglpszRegister != NULL);
-	ASSERT(rglpszSymbols != NULL);
+	RRAssert(rglpszRegister != NULL);
+	RRAssert(rglpszSymbols != NULL);
 	if (rglpszRegister == NULL || rglpszSymbols == NULL)
 		return FALSE;
 

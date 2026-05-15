@@ -175,7 +175,7 @@ protected:
 	CRulerItem* GetFreeTab();
 	CView* GetView()
 	{
-		ASSERT(GetParent() != NULL);
+		RRAssert(GetParent() != NULL);
 		return ((CFrameWnd*)GetParent())->GetActiveView();
 	}
 	CDocument* GetDocument() { return GetView()->GetDocument(); }

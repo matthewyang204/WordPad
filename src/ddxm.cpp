@@ -51,7 +51,7 @@ void PASCAL DDX_Twips(CDataExchange* pDX, int nIDC, int& value)
 
 void PASCAL DDV_MinMaxTwips(CDataExchange* pDX, int value, int minVal, int maxVal)
 {
-	ASSERT(minVal <= maxVal);
+	RRAssert(minVal <= maxVal);
 	if (value < minVal || value > maxVal)
 	{
 		// "The measurement must be between %1 and %2."

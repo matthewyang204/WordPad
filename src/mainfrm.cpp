@@ -100,7 +100,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 		// register a new class
 		wndcls.lpszClassName = szWordPadClass;
 		wndcls.hIcon = ::LoadIcon(hInst, MAKEINTRESOURCE(IDR_MAINFRAME));
-		ASSERT(wndcls.hIcon != NULL);
+		RRAssert(wndcls.hIcon != NULL);
 		if (!AfxRegisterClass(&wndcls))
 			AfxThrowResourceException();
 	}
@@ -249,7 +249,7 @@ BOOL CMainFrame::CreateMenuBar()
 	CString str;
 	BOOL bValidString;
 	bValidString = str.LoadString(IDS_TITLE_MENUBAR);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 	m_wndMenuBar.SetWindowText(str);
 	return TRUE;
 }
@@ -268,7 +268,7 @@ BOOL CMainFrame::CreateToolBar()
 	CString str;
 	BOOL bValidString;
 	bValidString = str.LoadString(IDS_TITLE_TOOLBAR);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 	m_wndToolBar.SetWindowText(str);
 
 	m_wndToolBar.EnableCustomizeButton (TRUE, ID_VIEW_CUSTOMIZE, _T("Customize..."));
@@ -290,7 +290,7 @@ BOOL CMainFrame::CreateFormatBar()
 	CString str;
 	BOOL bValidString;
 	bValidString = str.LoadString(IDS_TITLE_FORMATBAR);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 	m_wndFormatBar.SetWindowText(str);
 
 	m_wndFormatBar.EnableCustomizeButton (TRUE, ID_VIEW_CUSTOMIZE, _T("Customize..."));
@@ -413,7 +413,7 @@ LRESULT CMainFrame::OnBarState(WPARAM wParam, LPARAM lParam)
 {
 	if (lParam == -1)
 		return 0L;
-	ASSERT(lParam != RD_EMBEDDED);
+	RRAssert(lParam != RD_EMBEDDED);
 	if (wParam != 0)
 	{
 		if (IsTextType((int) lParam))
@@ -584,7 +584,7 @@ void CMainFrame::AdjustObjectSubmenu (CMFCPopupMenu* pMenuPopup)
 		nConvertID = 0;
 
 	HMENU hMenu = pMenuBar->ExportToMenu ();
-	ASSERT(hMenu != NULL);
+	RRAssert(hMenu != NULL);
 	if (hMenu != NULL)
 	{
 		// update the menu

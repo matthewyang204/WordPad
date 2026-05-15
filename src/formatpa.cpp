@@ -85,7 +85,7 @@ void CFormatParaDlg::OnOK()
 	m_pf.dwMask = 0;
 	if (m_nAlignment >= 0)
 	{
-		ASSERT(m_nAlignment < 3);
+		RRAssert(m_nAlignment < 3);
 		m_pf.dwMask |= PFM_ALIGNMENT;
 		m_pf.wAlignment = (WORD)((m_nAlignment == 0) ? PFA_LEFT :
 			(m_nAlignment == 1) ? PFA_RIGHT : PFA_CENTER);
@@ -109,15 +109,15 @@ BOOL CFormatParaDlg::OnInitDialog()
 	BOOL bValidString;
 
 	bValidString = str.LoadString(IDS_LEFT);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 	pBox->AddString(str);
 
 	bValidString = str.LoadString(IDS_RIGHT);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 	pBox->AddString(str);
 
 	bValidString = str.LoadString(IDS_CENTER);
-	ASSERT(bValidString);
+	RRAssert(bValidString);
 	pBox->AddString(str);
 
 	if (m_nWordWrap == 0)

@@ -43,7 +43,7 @@ BOOL CListDlg::OnInitDialog()
 // fix this
 	SetDlgItemText(IDC_STATIC_HEADING, m_strListTitle);
 	CListBox* pListBox = (CListBox*)GetDlgItem(IDC_LISTDIALOG_LIST);
-	ASSERT(pListBox != NULL);
+	RRAssert(pListBox != NULL);
 	if (pListBox != NULL)
 	{
 		// fill with document templates in list
@@ -62,7 +62,7 @@ BOOL CListDlg::OnInitDialog()
 void CListDlg::OnOK()
 {
 	CListBox* pListBox = (CListBox*)GetDlgItem(IDC_LISTDIALOG_LIST);
-	ASSERT(pListBox != NULL);
+	RRAssert(pListBox != NULL);
 	if (pListBox != NULL)
 	{
 		m_nSelection = pListBox->GetCurSel();
