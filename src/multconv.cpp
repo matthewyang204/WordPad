@@ -115,7 +115,7 @@ HGLOBAL CConverter::StringToHGLOBAL(LPCSTR pstr)
 			char* p = (char*) GlobalLock(hMem);
 			RRAssert(p != NULL);
 			if (p != NULL)
-				lstrcpyA(p, pstr);
+				strcpy_s(p, lstrlenA(pstr) + 1, pstr);
 			GlobalUnlock(hMem);
 		}
 	}
