@@ -59,7 +59,7 @@ void CDocOptions::LoadDockState(CDockState& ds, LPCTSTR lpszProfileName, LPCTSTR
 		CArchive ar(&file, CArchive::load);
 		ds.Serialize(ar);
 		ar.Close();
-		delete p;
+		delete[] p;
 	}
 }
 
