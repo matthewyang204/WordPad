@@ -235,8 +235,8 @@ BOOL CConverter::IsFormatCorrect(LPCTSTR pszFileName)
 	if (m_hLibCnv == NULL || m_pIsFormatCorrect == NULL)
 		return FALSE;
 
-	char buf[_MAX_PATH];
-	strcpy(buf, T2CA(pszFileName));
+	strncpy_s(buf, T2CA(pszFileName), _MAX_PATH - 1);
+	buf[_MAX_PATH - 1] = 0;
 
 	CharToOemA(buf, buf);
 
@@ -368,8 +368,8 @@ BOOL CConverter::Open(LPCTSTR pszFileName, UINT nOpenFlags,
 	USES_CONVERSION;
 	// we convert to oem and back because of the following case
 	// test(c).txt becomes testc.txt in OEM and stays testc.txt to Ansi
-	char buf[_MAX_PATH];
-	strcpy(buf, T2CA(pszFileName));
+	strncpy_s(buf, T2CA(pszFileName), _MAX_PATH - 1);
+	buf[_MAX_PATH - 1] = 0;
 	CharToOemA(buf, buf);
 	OemToCharA(buf, buf);
 
