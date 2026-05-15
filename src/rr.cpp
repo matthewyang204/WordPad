@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "rr.h"
 #include <windows.h>
 #include <stdio.h>
