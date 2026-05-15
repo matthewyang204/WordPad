@@ -105,6 +105,9 @@
     <ClCompile Include="wordpvw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppLookDlg.h">
@@ -207,6 +210,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="wordpvw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

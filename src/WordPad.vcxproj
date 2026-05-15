@@ -1251,6 +1251,7 @@
     <ClCompile Include="options.cpp" />
     <ClCompile Include="optionsh.cpp" />
     <ClCompile Include="pageset.cpp" />
+    <ClCompile Include="rr.cpp" />
     <ClCompile Include="ruler.cpp" />
     <ClCompile Include="splash.cpp" />
     <ClCompile Include="srvritem.cpp" />
@@ -1311,6 +1312,7 @@
     <ClInclude Include="optionsh.h" />
     <ClInclude Include="pageset.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="rr.h" />
     <ClInclude Include="ruler.h" />
     <ClInclude Include="splash.h" />
     <ClInclude Include="srvritem.h" />
