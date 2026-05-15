@@ -80,7 +80,9 @@ void CTrackFile::OutputPercent(int nPercentComplete)
 		m_nLastPercent = nPercentComplete;
 		TCHAR buf[64];
 		int n = nPercentComplete;
-		wsprintf(buf, (n==100) ? m_strWait : m_strComplete, n);
+		CStringA tmp;
+		tmp.Format((n == 100) ? m_strWait : m_strComplete, n);
+		lstrcpyn(buf, tmp, 64);
 		OutputString(buf);
 	}
 }
@@ -92,7 +94,7 @@ COEMFile::COEMFile(CFrameWnd* pWnd) : CTrackFile(pWnd)
 UINT COEMFile::Read(void FAR* lpBuf, UINT nCount)
 {
 	UINT n = CTrackFile::Read(lpBuf, nCount);
-	OemToCharBuffA((const char*)lpBuf, (char*)lpBuf, n);
+	OemToCharBuffA((LPSTR)lpBuf, (LPSTR)lpBuf, n);
 	return n;
 }
 
@@ -238,7 +240,10 @@ BOOL CConverter::IsFormatCorrect(LPCTSTR pszFileName)
 	strncpy_s(buf, T2CA(pszFileName), _MAX_PATH - 1);
 	buf[_MAX_PATH - 1] = 0;
 
-	CharToOemA(buf, buf);
+	CStringA tmp(buf);
+	CharToOemA(tmp.GetBuffer(), tmp.GetBuffer());
+	tmp.ReleaseBuffer();
+	strcpy_s(buf, tmp);
 
 	HGLOBAL hFileName = StringToHGLOBAL(buf);
 	HGLOBAL hDesc = GlobalAlloc(GHND, 256);
@@ -370,7 +375,10 @@ BOOL CConverter::Open(LPCTSTR pszFileName, UINT nOpenFlags,
 	// test(c).txt becomes testc.txt in OEM and stays testc.txt to Ansi
 	strncpy_s(buf, T2CA(pszFileName), _MAX_PATH - 1);
 	buf[_MAX_PATH - 1] = 0;
-	CharToOemA(buf, buf);
+	CStringA tmp(buf);
+	CharToOemA(tmp.GetBuffer(), tmp.GetBuffer());
+	tmp.ReleaseBuffer();
+	strcpy_s(buf, tmp);
 	OemToCharA(buf, buf);
 
 	LPTSTR lpszFileNameT = A2T(buf);
@@ -399,9 +407,14 @@ BOOL CConverter::Open(LPCTSTR pszFileName, UINT nOpenFlags,
 	//create the events
 	m_hEventFile = CreateEvent(&sa, TRUE, FALSE, NULL);
 	m_hEventConv = CreateEvent(&sa, TRUE, FALSE, NULL);
+	RRAssert(m_hEventFile != NULL);
+	RRAssert(m_hEventConv != NULL);
 	//create the converter thread and create the events
 
-	CharToOemA(buf, buf);
+	CStringA tmp(buf);
+	CharToOemA(tmp.GetBuffer(), tmp.GetBuffer());
+	tmp.ReleaseBuffer();
+	strcpy_s(buf, tmp);
 	RRAssert(m_hFileName == NULL);
 	m_hFileName = StringToHGLOBAL(buf);
 
