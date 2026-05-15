@@ -430,9 +430,11 @@ void CWordPadApp::LoadOptions()
 
 	if (GetProfileBinary(szSection, szFrameRect, &pb, &nLen))
 	{
-		ASSERT(nLen == sizeof(CRect));
-		memcpy(&m_rectInitialFrame, pb, sizeof(CRect));
-		delete pb;
+		if (nLen == sizeof(CRect))
+		{
+			memcpy(&m_rectInitialFrame, pb, sizeof(CRect));
+		}
+		delete[] pb;
 	}
 	else
 		m_rectInitialFrame.SetRect(0,0,0,0);
