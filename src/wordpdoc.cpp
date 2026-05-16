@@ -293,7 +293,9 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 				newName.ReleaseBuffer(iBad);
 
 			// append the default suffix if there is one
-			newName += GetExtFromType(m_nDocType);
+			// newName += GetExtFromType(m_nDocType);
+			int extType = (m_bRTF ? RD_RICHTEXT : m_nDocType);
+			newName += GetExtFromType(extType);
 		}
 
 		int nDocType = m_nDocType;
