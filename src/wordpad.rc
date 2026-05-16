@@ -602,7 +602,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Microsoft Corporation & matthewyang204"
             VALUE "FileDescription", "WordPad"
-            VALUE "FileVersion", "1.0"
+            VALUE "FileVersion", "2026.5"
             VALUE "InternalName", "wordpad"
             VALUE "LegalCopyright", "Copyright © Microsoft Corp. 1998\nCopyright © Matthew Yang 2025"
             VALUE "OriginalFilename", "WORDPAD.EXE"
