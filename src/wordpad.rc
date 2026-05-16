@@ -604,7 +604,7 @@ BEGIN
             VALUE "FileDescription", "WordPad"
             VALUE "FileVersion", "2026.5"
             VALUE "InternalName", "wordpad"
-            VALUE "LegalCopyright", "Copyright © Microsoft Corp. 1998\nCopyright © Matthew Yang 2025"
+            VALUE "LegalCopyright", "Copyright © Microsoft Corp. 1998\nCopyright © Matthew Yang 2025-2026"
             VALUE "OriginalFilename", "WORDPAD.EXE"
             VALUE "ProductName", "Microsoft Windows (TM) Operating System"
             VALUE "ProductVersion", "4.0"
