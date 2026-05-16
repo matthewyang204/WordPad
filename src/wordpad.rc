@@ -600,7 +600,7 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "Microsoft Corporation"
+            VALUE "CompanyName", "Microsoft Corporation & matthewyang204"
             VALUE "FileDescription", "WordPad"
             VALUE "FileVersion", "1.0"
             VALUE "InternalName", "wordpad"
