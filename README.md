@@ -14,7 +14,7 @@ Additionally, for development:
 - Visual Studio 2019
 - C++ Desktop Development workflow installed in VS
 - C++ MFC & ATL Libraries installed in VS
-- Inno Setup 6.43 or later
+- Inno Setup 6.0 or later
 
 # Installation & Usage
 If installing to your system, just run the installer. For users of the portable distribution, simply extract the folder and place it anywhere you'd like.
