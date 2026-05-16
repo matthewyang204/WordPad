@@ -64,8 +64,6 @@ BOOL CFileNewDialog::OnInitDialog()
 	CCSDialog::OnInitDialog();
 
 	CString str;
-	VERIFY(str.LoadString(IDS_WORD6_DOCUMENT));
-	m_listbox.AddString(str);
 	VERIFY(str.LoadString(IDS_RTF_DOCUMENT));
 	m_listbox.AddString(str);
 	VERIFY(str.LoadString(IDS_TEXT_DOCUMENT));

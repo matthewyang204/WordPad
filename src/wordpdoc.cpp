@@ -272,8 +272,8 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 			MAKEINTRESOURCE(IDS_TF_BUTTONS), MB_ICONQUESTION, 0, 3, nHelpIDs);
 		if (nRes == 3)
 			return FALSE;
-		int nDocType = (nRes == 0) ? RD_DEFAULT:    //Word 6
-					(nRes == 1) ? RD_RICHTEXT : //RTF
+		int nDocType = (nRes == 0) ? RD_RICHTEXT:    //RTF
+					(nRes == 1) ? RD_TEXT : //text
 					RD_TEXT;                    //text
 		if (IsTextType(m_nDocType) && nDocType != RD_TEXT)
 			SetDocType(nDocType, TRUE);
