@@ -1021,7 +1021,7 @@ STRINGTABLE
 BEGIN
     IDS_WRITEPROTECT        "Unable to write to %1.\nThe disk is write-protected.\nA file cannot be saved on a write-protected disk."
     IDS_TITLE_MENUBAR       "Menu Bar"
-    IDS_ABOUT_INFO          "Copyright © 1992-2008 Microsoft Corporation.\nCopyright © 2025 Matthew Yang"
+    IDS_ABOUT_INFO          "Copyright © 1992-2008 Microsoft Corporation.\nCopyright © 2025-2026 Matthew Yang"
 END
 
 STRINGTABLE 
