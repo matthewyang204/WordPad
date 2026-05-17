@@ -503,7 +503,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP
 FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         "",IDC_BIGICON,"Button",BS_OWNERDRAW | WS_DISABLED,6,6,38,40
-    LTEXT           "WordPad Version 2026.5",IDC_STATIC,60,6,164,8,NOT WS_GROUP
+    LTEXT           "WordPad Version 2026.5.1",IDC_STATIC,60,6,164,8,NOT WS_GROUP
     // LTEXT           "Microsoft Foundation Classes",IDC_STATIC,60,15,164,8,NOT WS_GROUP
     CONTROL         "",IDC_STATIC,"Static",SS_BLACKRECT,60,30,188,1
     LTEXT           "Copyright © Microsoft Corporation 1992-2008",IDC_STATIC,60,36,188,8
@@ -602,7 +602,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Microsoft Corporation & matthewyang204"
             VALUE "FileDescription", "WordPad"
-            VALUE "FileVersion", "2026.5"
+            VALUE "FileVersion", "2026.5.1"
             VALUE "InternalName", "wordpad"
             VALUE "LegalCopyright", "Copyright © Microsoft Corp. 1998\nCopyright © Matthew Yang 2025-2026"
             VALUE "OriginalFilename", "WORDPAD.EXE"
