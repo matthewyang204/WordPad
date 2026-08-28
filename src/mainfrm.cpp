@@ -427,6 +427,15 @@ LRESULT CMainFrame::OnBarState(WPARAM wParam, LPARAM lParam)
 			if (pBar != NULL)
 				pBar->ShowPane(FALSE, FALSE, FALSE);
 		}
+		else
+		{
+			CBasePane* pBar = GetPane(ID_VIEW_FORMATBAR);
+			if (pBar != NULL)
+				pBar->ShowPane(TRUE, FALSE, FALSE);
+			pBar = GetPane(ID_VIEW_RULER);
+			if (pBar != NULL)
+				pBar->ShowPane(TRUE, FALSE, FALSE);
+		}
 		HICON hIcon = GetIcon((int)lParam);
 		SendMessage(WM_SETICON, TRUE, (LPARAM)hIcon);
 
