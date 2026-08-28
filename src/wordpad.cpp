@@ -600,9 +600,9 @@ void CWordPadApp::OnFileNew()
 		if (dlg.DoModal() == IDCANCEL)
 			return;
 
-		nDocType = (dlg.m_nSel == 0) ? RD_DEFAULT:  //Word 6
-					(dlg.m_nSel == 1) ? RD_RICHTEXT :   //RTF
-					RD_TEXT ;                   //text
+		nDocType = (dlg.m_nSel == 0) ? RD_RICHTEXT :   //RTF
+					(dlg.m_nSel == 1) ? RD_TEXT :       //Text
+					RD_DEFAULT ;                        //default
 
 		if (nDocType != RD_TEXT)
 			cmdInfo.m_bForceTextMode = FALSE;
