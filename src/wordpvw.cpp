@@ -617,35 +617,9 @@ HRESULT CWordPadView::GetClipboardData(CHARRANGE* lpchrg, DWORD /*reco*/,
 		return E_NOTIMPL;
 	}
 
-	BeginWaitCursor();
-	//create the data source
-	COleDataSource* pDataSource = new COleDataSource;
-
-	// put the formats into the data source
-	LPENUMFORMATETC lpEnumFormatEtc;
-	lpRichDataObj->EnumFormatEtc(DATADIR_SET, &lpEnumFormatEtc);
-	if (lpEnumFormatEtc != NULL)
-	{
-		FORMATETC etc;
-		while (lpEnumFormatEtc->Next(1, &etc, NULL) == S_OK)
-		{
-			STGMEDIUM stgMedium;
-			lpRichDataObj->GetData(&etc, &stgMedium);
-			pDataSource->CacheData(etc.cfFormat, &stgMedium, &etc);
-		}
-		lpEnumFormatEtc->Release();
-	}
-
-	CEmbeddedItem item(GetDocument(), cr.cpMin, cr.cpMax);
-	item.m_lpRichDataObj = lpRichDataObj;
-	// get wordpad formats
-	item.GetClipboardData(pDataSource);
-
-	// get the IDataObject from the data source
-	*lplpdataobj =  (LPDATAOBJECT)pDataSource->GetInterface(&IID_IDataObject);
-
-	EndWaitCursor();
-	return S_OK;
+	// Let RichEdit handle clipboard - don't override it
+	// Just return the RichEdit data object as-is so standard copy works
+	return CRichEditView::GetClipboardData(lpchrg, 0, lpRichDataObj, lplpdataobj);
 }
 
 HRESULT CWordPadView::QueryAcceptData(LPDATAOBJECT lpdataobj,
