@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WordPad"
-#define MyAppVersion "2026.8"
+#define MyAppVersion "2026.9"
 #define MyAppPublisher "Microsoft & Matthew Yang"
 #define MyAppURL "https://github.com/matthewyang204/WordPad"
 #define MyAppExeName "WordPad.exe"
