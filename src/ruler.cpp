@@ -412,6 +412,12 @@ void CRulerBar::OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL /*bDisableIfNoHndler*
 				m_nScroll = nScroll;
 				Invalidate();
 			}
+			int nNewLogx = pView->GetDC()->GetDeviceCaps(LOGPIXELSX);
+			if (nNewLogx != m_logx)
+			{
+				m_logx = nNewLogx;
+				Invalidate();
+			}
 		}
 	}
 }
