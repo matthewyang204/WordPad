@@ -96,11 +96,6 @@ void CFormatBar::OnReset ()
 	CMFCColorMenuButton* pColorButton = CreateColorButton ();
 	ReplaceButton (ID_CHAR_COLOR, *pColorButton);
 	delete pColorButton;
-
-	// Insert border type button:
-	CMFCToolBarMenuButton* pBorderTypeButton = CreateBorderTypeButton ();
-	ReplaceButton (ID_BORDER_1, *pBorderTypeButton);
-	delete pBorderTypeButton;
 }
 //***************************************************************************************
 void CFormatBar::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
