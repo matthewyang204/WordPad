@@ -61,7 +61,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, OnToolbarCreateNew)
 	ON_REGISTERED_MESSAGE(AFX_WM_GETDOCUMENTCOLORS, OnGetDocumentColors)
 	ON_COMMAND(ID_DUMMY, OnDummy)
-	ON_COMMAND(ID_HELP_FIND, OnAskQuestion)
+	// ON_COMMAND(ID_HELP_FIND, OnAskQuestion)
 END_MESSAGE_MAP()
 
 static UINT BASED_CODE indicators[] =
@@ -156,8 +156,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (!CreateRulerBar())
 		return -1;
 
-	CMFCToolBar::AddToolBarForImageCollection (IDR_TOOLBAR_IMAGES);
-	CMFCToolBar::AddToolBarForImageCollection (IDR_BORDER_TYPE);
+	/*CMFCToolBar::AddToolBarForImageCollection (IDR_TOOLBAR_IMAGES);
+	CMFCToolBar::AddToolBarForImageCollection (IDR_BORDER_TYPE);*/
 	
 	CMFCToolBar::EnableQuickCustomization ();
 
@@ -245,7 +245,7 @@ BOOL CMainFrame::CreateMenuBar()
 	m_wndMenuBar.SetPaneStyle(m_wndMenuBar.GetPaneStyle() |
 		CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC | CBRS_GRIPPER | CBRS_BORDER_3D);
 
-	m_wndMenuBar.EnableHelpCombobox (ID_HELP_FIND, _T("Type a question for help"));
+	// m_wndMenuBar.EnableHelpCombobox (ID_HELP_FIND, _T("Type a question for help"));
 
 	CString str;
 	BOOL bValidString;
