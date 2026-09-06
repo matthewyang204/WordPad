@@ -588,9 +588,9 @@ void CWordPadDoc::RestoreState(int nType)
 		RRAssert(pFrame != NULL);
 		if (pFrame != NULL)
 		{
-            // set new state - post message so frame and its control bars
+            // set new state - send message so frame and its control bars
 			// are guaranteed to be created before the message is processed
-			pFrame->PostMessage(WPM_BARSTATE, 1, nType);
+			pFrame->SendMessage(WPM_BARSTATE, 1, nType);
 		}
 
 		int nWrapNew = theApp.GetDocOptions(nType).m_nWordWrap;
