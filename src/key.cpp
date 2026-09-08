@@ -43,6 +43,7 @@ BOOL CKey::Create(HKEY hKey, LPCTSTR lpszKeyName)
 	if (hKey == NULL)
 		return FALSE;
 
+	Close();
 	return (RegCreateKey(hKey, lpszKeyName, &m_hKey) == ERROR_SUCCESS);
 }
 
@@ -52,6 +53,7 @@ BOOL CKey::Open(HKEY hKey, LPCTSTR lpszKeyName)
 	if (hKey == NULL)
 		return FALSE;
 
+	Close();
 	return (RegOpenKey(hKey, lpszKeyName, &m_hKey) == ERROR_SUCCESS);
 }
 
@@ -74,14 +76,22 @@ BOOL CKey::GetStringValue(CString& str, LPCTSTR lpszValueName)
 	DWORD dw = 0;
 	DWORD dwType = 0;
 	LONG lRes = RegQueryValueEx(m_hKey, (LPTSTR)lpszValueName, NULL, &dwType, NULL, &dw);
-	if (lRes == ERROR_SUCCESS)
+	if (lRes != ERROR_SUCCESS || dwType != REG_SZ ||
+		dw < sizeof(TCHAR) || (dw % sizeof(TCHAR)) != 0)
 	{
-		RRAssert(dwType == REG_SZ);
-		LPTSTR lpsz = str.GetBufferSetLength(dw);
-		lRes = RegQueryValueEx(m_hKey, (LPTSTR)lpszValueName, NULL, &dwType, (BYTE*)lpsz, &dw);
-		RRAssert(lRes == ERROR_SUCCESS);
-		str.ReleaseBuffer();
-		return TRUE;
+		return FALSE;
 	}
-	return FALSE;
+
+	const int nChars = (int)(dw / sizeof(TCHAR));
+	LPTSTR lpsz = str.GetBuffer(nChars + 1);
+	lRes = RegQueryValueEx(m_hKey, lpszValueName, NULL, &dwType,
+		(BYTE*)lpsz, &dw);
+	if (lRes != ERROR_SUCCESS || dwType != REG_SZ)
+	{
+		str.ReleaseBuffer(0);
+		return FALSE;
+	}
+	lpsz[nChars] = NULL;
+	str.ReleaseBuffer();
+	return TRUE;
 }

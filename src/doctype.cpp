@@ -73,19 +73,19 @@ static BOOL IsLeadMatch(CFile& file, const BYTE* pb, UINT nCount)
 {
 	// check for match at beginning of file
 	BOOL b = FALSE;
-	BYTE* buf = new BYTE[nCount];
+	BYTE buf[sizeof(byteCompFilePrefix)] = {0};
+	RRAssert(nCount <= sizeof(buf));
+	if (nCount > sizeof(buf))
+		return FALSE;
 
 	TRY
 	{
 		file.SeekToBegin();
-		memset(buf, 0, nCount);
-		file.Read(buf, nCount);
-		if (memcmp(buf, pb, nCount) == 0)
+		if (file.Read(buf, nCount) == nCount && memcmp(buf, pb, nCount) == 0)
 			b = TRUE;
 	}
 	END_TRY
 
-	delete [] buf;
 	return b;
 }
 

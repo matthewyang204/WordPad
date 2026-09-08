@@ -5,26 +5,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char* writeToLogFile(const char* expr)
+static BOOL WriteToLogFile(const char* message, char* path, size_t pathSize)
 {
-    char* path = new char[MAX_PATH];
-
-    GetTempPathA(MAX_PATH, path);
-    lstrcatA(path, "wordpad-crash-log.txt");
-
-    FILE* f = fopen(path, "a");
-    if (f)
+    DWORD pathLength = GetTempPathA((DWORD)pathSize, path);
+    if (pathLength == 0 || pathLength >= pathSize ||
+        strcat_s(path, pathSize, "wordpad-crash-log.txt") != 0)
     {
-        fprintf(f, expr);
-        fclose(f);
+        return FALSE;
     }
 
-    return path;
+    FILE* f = NULL;
+    if (fopen_s(&f, path, "a") != 0)
+        return FALSE;
+
+    fputs(message, f);
+    fclose(f);
+    return TRUE;
 }
 
 static void RRLogFailure(const char* expr, const char* file, int line)
 {
-    char* msg = new char[512];
+    char msg[512];
     _snprintf_s(
         msg,
         512,
@@ -35,17 +36,20 @@ static void RRLogFailure(const char* expr, const char* file, int line)
         line
     );
 
-    fprintf(stderr, msg);
-    char* path = writeToLogFile(msg);
+    fputs(msg, stderr);
 
-    ShellExecuteA(
-        NULL,
-        "open",
-        "notepad.exe",
-        path,
-        NULL,
-        SW_SHOW
-    );
+    char path[MAX_PATH];
+    if (WriteToLogFile(msg, path, _countof(path)))
+    {
+        ShellExecuteA(
+            NULL,
+            "open",
+            "notepad.exe",
+            path,
+            NULL,
+            SW_SHOW
+        );
+    }
 }
 
 void RRAssertFail(const char* expr, const char* file, int line)

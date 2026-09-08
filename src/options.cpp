@@ -31,12 +31,13 @@ void CDocOptions::SaveDockState(CDockState& ds, LPCTSTR lpszProfileName, LPCTSTR
 	ds.Serialize(ar);
 	ar.Close();
 	int nSize = (int) file.GetLength();
-	RRAssert(nSize < 4096);
-	BYTE* p = new BYTE[nSize];
+	if (nSize <= 0 || nSize >= 4096)
+		return;
+	CByteArray data;
+	data.SetSize(nSize);
 	file.SeekToBegin();
-	file.Read(p, nSize);
-	theApp.WriteProfileBinary(lpszProfileName, lpszLayout, p, nSize);
-	delete [] p;
+	file.Read(data.GetData(), nSize);
+	theApp.WriteProfileBinary(lpszProfileName, lpszLayout, data.GetData(), nSize);
 }
 
 void CDocOptions::SaveOptions(LPCTSTR lpszProfileName)
@@ -52,13 +53,15 @@ void CDocOptions::LoadDockState(CDockState& ds, LPCTSTR lpszProfileName, LPCTSTR
 	UINT nLen = 0;
 	if (theApp.GetProfileBinary(lpszProfileName, lpszLayout, &p, &nLen))
 	{
-		RRAssert(nLen < 4096);
-		CMemFile file;
-		file.Write(p, nLen);
-		file.SeekToBegin();
-		CArchive ar(&file, CArchive::load);
-		ds.Serialize(ar);
-		ar.Close();
+		if (p != NULL && nLen > 0 && nLen < 4096)
+		{
+			CMemFile file;
+			file.Write(p, nLen);
+			file.SeekToBegin();
+			CArchive ar(&file, CArchive::load);
+			ds.Serialize(ar);
+			ar.Close();
+		}
 		delete[] p;
 	}
 }
@@ -68,6 +71,8 @@ void CDocOptions::LoadOptions(LPCTSTR lpszProfileName)
 	LoadDockState(m_ds1, lpszProfileName, szLayout1);
 	LoadDockState(m_ds2, lpszProfileName, szLayout2);
 	m_nWordWrap = theApp.GetProfileInt(lpszProfileName, szWrap, m_nDefWrap);
+	if (m_nWordWrap < 0 || m_nWordWrap > 2)
+		m_nWordWrap = m_nDefWrap;
 }
 
 /////////////////////////////////////////////////////////////////////////////
