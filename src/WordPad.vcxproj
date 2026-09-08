@@ -1282,6 +1282,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Release CLR|X64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="strings.cpp" />
+    <ClCompile Include="table.cpp" />
     <ClCompile Include="TaskPane.cpp" />
     <ClCompile Include="unitspag.cpp" />
     <ClCompile Include="wordpad.cpp" />
@@ -1318,6 +1319,7 @@
     <ClInclude Include="srvritem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="strings.h" />
+    <ClInclude Include="table.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TaskPane.h" />
     <ClInclude Include="unitspag.h" />
