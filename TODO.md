@@ -2,3 +2,4 @@
 - [ ] Fix ruler bug where it ceases to function after saving a file
 - [ ] Clean up the disgusting current patchy, message-clogged architecture
 - [ ] Make program not contain weird messed up characters
+- [ ] Add a table function (which is currently not implemented)
