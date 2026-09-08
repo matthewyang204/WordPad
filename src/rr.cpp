@@ -52,9 +52,20 @@ static void RRLogFailure(const char* expr, const char* file, int line)
     }
 }
 
+void RRShowFailureBox()
+{
+    MessageBoxA(
+        NULL,
+        "A critical error has occurred and WordPad has been shut down. Please check the log file for details.",
+        "Critical Error",
+        MB_OK | MB_ICONERROR
+    );
+}
+
 void RRAssertFail(const char* expr, const char* file, int line)
 {
     RRLogFailure(expr, file, line);
+    RRShowFailureBox();
     if (IsDebuggerPresent())
     {
         DebugBreak();
