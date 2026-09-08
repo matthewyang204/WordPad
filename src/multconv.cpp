@@ -80,9 +80,9 @@ void CTrackFile::OutputPercent(int nPercentComplete)
 		m_nLastPercent = nPercentComplete;
 		TCHAR buf[64];
 		int n = nPercentComplete;
-		CStringA tmp;
+		CString tmp;
 		tmp.Format((n == 100) ? m_strWait : m_strComplete, n);
-		lstrcpyn(buf, tmp, 64);
+		lstrcpyn(buf, tmp, _countof(buf));
 		OutputString(buf);
 	}
 }
@@ -100,8 +100,10 @@ UINT COEMFile::Read(void FAR* lpBuf, UINT nCount)
 
 void COEMFile::Write(const void FAR* lpBuf, UINT nCount)
 {
-	CharToOemBuffA((const char*)lpBuf, (char*)lpBuf, nCount);
-	CTrackFile::Write(lpBuf, nCount);
+	CByteArray converted;
+	converted.SetSize(nCount);
+	CharToOemBuffA((LPCSTR)lpBuf, (LPSTR)converted.GetData(), nCount);
+	CTrackFile::Write(converted.GetData(), nCount);
 }
 
 #ifdef CONVERTERS
@@ -111,7 +113,7 @@ HGLOBAL CConverter::StringToHGLOBAL(LPCSTR pstr)
 	HGLOBAL hMem = NULL;
 	if (pstr != NULL)
 	{
-		hMem = GlobalAlloc(GHND, (lstrlenA(pstr)*2)+1);
+		hMem = GlobalAlloc(GHND, lstrlenA(pstr) + 1);
 		if (hMem != NULL)
 		{
 			char* p = (char*) GlobalLock(hMem);
@@ -411,7 +413,7 @@ BOOL CConverter::Open(LPCTSTR pszFileName, UINT nOpenFlags,
 	RRAssert(m_hEventConv != NULL);
 	//create the converter thread and create the events
 
-	CStringA tmp(buf);
+	tmp = buf;
 	CharToOemA(tmp.GetBuffer(), tmp.GetBuffer());
 	tmp.ReleaseBuffer();
 	strcpy_s(buf, tmp);
@@ -472,6 +474,7 @@ void CConverter::Write(const void FAR* lpBuf, UINT nCount)
 	RRAssert(!m_bForeignToRtf);
 
 	m_nBytesWritten += nCount;
+	const BYTE* pSource = (const BYTE*)lpBuf;
 	while (nCount != 0)
 	{
 		WaitForConverter();
@@ -482,8 +485,9 @@ void CConverter::Write(const void FAR* lpBuf, UINT nCount)
 		nCount -= m_nBytesAvail;
 		BYTE* pBuf = (BYTE*)GlobalLock(m_hBuff);
 		RRAssert(pBuf != NULL);
-		memcpy(pBuf, lpBuf, m_nBytesAvail);
+		memcpy(pBuf, pSource, m_nBytesAvail);
 		GlobalUnlock(m_hBuff);
+		pSource += m_nBytesAvail;
 		SetEvent(m_hEventConv);
 	}
 	OutputString(m_strSaving);

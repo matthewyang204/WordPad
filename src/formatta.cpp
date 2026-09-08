@@ -44,9 +44,8 @@ CFormatTabDlg::CFormatTabDlg(WPD_PARAFORMAT& pf, CWnd* pParent /*=NULL*/)
 	m_nCount = 0;
 	if (m_pf.dwMask & PFM_TABSTOPS)
 	{
-		m_nCount = m_pf.cTabCount;
-		RRAssert(m_pf.cTabCount <= MAX_TAB_STOPS);
-		for (int i=0;i<m_pf.cTabCount;i++)
+		m_nCount = min((int)m_pf.cTabCount, MAX_TAB_STOPS);
+		for (int i=0;i<m_nCount;i++)
 			m_tabarray[i] = m_pf.rgxTabs[i];
 	}
 

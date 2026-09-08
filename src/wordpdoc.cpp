@@ -183,18 +183,31 @@ BOOL CWordPadDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	return TRUE;
 }
 
+class CBusyDialogGuard
+{
+public:
+	CBusyDialogGuard() : m_pFilter(AfxOleGetMessageFilter())
+	{
+		if (m_pFilter != NULL)
+			m_pFilter->EnableBusyDialog(FALSE);
+	}
+
+	~CBusyDialogGuard()
+	{
+		if (m_pFilter != NULL)
+			m_pFilter->EnableBusyDialog(TRUE);
+	}
+
+private:
+	COleMessageFilter* m_pFilter;
+};
+
 void CWordPadDoc::Serialize(CArchive& ar)
 {
-	COleMessageFilter* pFilter = AfxOleGetMessageFilter();
-	RRAssert(pFilter != NULL);
-	if (pFilter != NULL)
-	{
-		pFilter->EnableBusyDialog(FALSE);
-		if (ar.IsLoading())
-			SetDocType(m_nNewDocType);
-		CRichEditDoc::Serialize(ar);
-		pFilter->EnableBusyDialog(TRUE);
-	}
+	CBusyDialogGuard busyDialogGuard;
+	if (ar.IsLoading())
+		SetDocType(m_nNewDocType);
+	CRichEditDoc::Serialize(ar);
 }
 
 BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
@@ -290,7 +303,7 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 			newName = m_strTitle;
 			int iBad = newName.FindOneOf(_T(" #%;/\\"));    // dubious filename
 			if (iBad != -1)
-				newName.ReleaseBuffer(iBad);
+				newName = newName.Left(iBad);
 
 			// append the default suffix if there is one
 			// newName += GetExtFromType(m_nDocType);
@@ -426,7 +439,7 @@ void CWordPadDoc::SetDocType(int nNewDocType, BOOL bNoOptionChange)
 CWordPadView* CWordPadDoc::GetView()
 {
 	POSITION pos = GetFirstViewPosition();
-	return (CWordPadView* )GetNextView( pos );
+	return pos != NULL ? (CWordPadView*)GetNextView(pos) : NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -645,7 +658,6 @@ void CWordPadDoc::OnUpdateObjectVerbMenu(CCmdUI* pCmdUI)
 
 	// check for single selection
 	COleClientItem* pItem = GetPrimarySelectedItem(GetRoutingView_());
-	GetPrimarySelectedItem (GetRoutingView_());
 
 	if (pItem == NULL || pItem->GetType() == OT_STATIC)
 	{
@@ -660,7 +672,7 @@ void CWordPadDoc::OnUpdateObjectVerbMenu(CCmdUI* pCmdUI)
 		nConvertID = 0;
 
 	// update the menu
-	AfxOleSetEditMenu(GetPrimarySelectedItem(GetRoutingView_()),
+	AfxOleSetEditMenu(pItem,
 		pCmdUI->m_pMenu, pCmdUI->m_nIndex,
 		ID_OLE_VERB_FIRST, ID_OLE_VERB_LAST, nConvertID);
 }
@@ -669,5 +681,7 @@ void CWordPadDoc::SetPathName(LPCTSTR lpszPathName, BOOL bAddToMRU)
 {
 	CRichEditDoc::SetPathName(lpszPathName, bAddToMRU);
 
-	((CMainFrame*) AfxGetMainWnd ())->UpdateMRUFilesList ();
+	CMainFrame* pMainFrame = DYNAMIC_DOWNCAST(CMainFrame, AfxGetMainWnd());
+	if (pMainFrame != NULL)
+		pMainFrame->UpdateMRUFilesList();
 }

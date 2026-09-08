@@ -203,7 +203,9 @@ BOOL CWordPadApp::InitInstance()
 	NotifyPrinterChanged((m_hDevNames == NULL));
 
 	free((void*)m_pszHelpFilePath);
-	m_pszHelpFilePath = _T("WORDPAD.HLP");
+	m_pszHelpFilePath = _tcsdup(_T("WORDPAD.HLP"));
+	if (m_pszHelpFilePath == NULL)
+		return FALSE;
 
 	// Initialize OLE libraries
 	if (!AfxOleInit())
@@ -426,7 +428,10 @@ void CWordPadApp::LoadOptions()
 	buf[0] = NULL;
 	GetLocaleInfo(GetUserDefaultLCID(), LOCALE_IMEASURE, buf, 2);
 	int nDefUnits = buf[0] == '1' ? 0 : 1;
-	SetUnits(GetProfileInt(szSection, szUnits, nDefUnits));
+	int nUnits = GetProfileInt(szSection, szUnits, nDefUnits);
+	if (nUnits < 0 || nUnits >= m_nPrimaryNumUnits)
+		nUnits = nDefUnits;
+	SetUnits(nUnits);
 	m_bMaximized = GetProfileInt(szSection, szMaximized, (int)FALSE);
 
 	if (GetProfileBinary(szSection, szFrameRect, &pb, &nLen))
@@ -451,8 +456,10 @@ void CWordPadApp::LoadOptions()
 
 	if (GetProfileBinary(szSection, szPageMargin, &pb, &nLen))
 	{
-		RRAssert(nLen == sizeof(CRect));
-		memcpy(&m_rectPageMargin, pb, sizeof(CRect));
+		if (pb != NULL && nLen == sizeof(CRect))
+			memcpy(&m_rectPageMargin, pb, sizeof(CRect));
+		else
+			m_rectPageMargin.SetRect(1800, 1440, 1800, 1440);
 		delete[] pb;
 	}
 	else
@@ -483,7 +490,7 @@ BOOL CWordPadApp::ParseMeasurement(LPTSTR buf, int& lVal)
 	float f = (float)_tcstod(buf,&pch);
 
 	// eat white space, if any
-	while (isspace(*pch))
+	while (_istspace(*pch))
 		pch++;
 
 	if (pch[0] == NULL) // default
@@ -506,16 +513,8 @@ void CWordPadApp::PrintTwips(TCHAR* buf, int nValue, int nDec)
 {
 	RRAssert(nDec == 2);
 	int div = GetTPU();
-	int lval = nValue;
-	BOOL bNeg = FALSE;
-
-	int* pVal = new int[nDec+1];
-
-	if (lval < 0)
-	{
-		bNeg = TRUE;
-		lval = -lval;
-	}
+	int lval = abs(nValue);
+	int pVal[3];
 
 	int i = 0;
 
@@ -543,7 +542,6 @@ void CWordPadApp::PrintTwips(TCHAR* buf, int nValue, int nDec)
 	if (m_units[m_nUnits].m_bSpaceAbbrev)
 		lstrcat(buf, _T(" "));
 	lstrcat(buf, GetAbbrev());
-	delete []pVal;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -566,8 +564,6 @@ void CWordPadApp::OnAppAbout()
 
 int CWordPadApp::ExitInstance()
 {
-	m_pszHelpFilePath = NULL;
-
 	HMODULE h = GetModuleHandle(_T("RICHED32.DLL"));
 	if (h != NULL)
 	{
@@ -865,10 +861,6 @@ BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols,
 	CString strKey;
 	CString strValueName;
 	CString strValue;
-
-	// keeping a key open makes this go a bit faster
-	CKey keyTemp;
-	VERIFY(keyTemp.Create(HKEY_CLASSES_ROOT, _T("CLSID")));
 
 	BOOL bResult = TRUE;
 	while (*rglpszRegister != NULL)

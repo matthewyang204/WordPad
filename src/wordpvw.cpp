@@ -63,7 +63,8 @@ BOOL CParaFormat::operator==(WPD_PARAFORMAT& pf)
 	{
 		return FALSE;
 	}
-	for (int i=0;i<pf.cTabCount;i++)
+	int nTabCount = min((int)pf.cTabCount, MAX_TAB_STOPS);
+	for (int i=0;i<nTabCount;i++)
 	{
 		if (rgxTabs[i] != pf.rgxTabs[i])
 			return FALSE;
@@ -502,9 +503,11 @@ void CWordPadView::OnTimer(UINT_PTR nIDEvent)
 		m_bDelayUpdateItems = FALSE;
 
 		// Update document colors:
-		CFrameWndEx* pFrameEx = (CFrameWndEx*) GetTopLevelFrame ();
-		CMFCColorBar* pColorBar = DYNAMIC_DOWNCAST (CMFCColorBar, 
-			pFrameEx->GetPane  (ID_COLOR_TEAROFF));
+		CFrameWndEx* pFrameEx = DYNAMIC_DOWNCAST(CFrameWndEx, GetTopLevelFrame());
+		CMFCColorBar* pColorBar = NULL;
+		if (pFrameEx != NULL)
+			pColorBar = DYNAMIC_DOWNCAST(CMFCColorBar,
+				pFrameEx->GetPane(ID_COLOR_TEAROFF));
 		
 		if (pColorBar != NULL)
 		{
@@ -524,8 +527,8 @@ void CWordPadView::OnEditChange()
 void CWordPadView::OnDestroy()
 {
 	POSITION pos = theApp.m_listPrinterNotify.Find(m_hWnd);
-	RRAssert(pos != NULL);
-	theApp.m_listPrinterNotify.RemoveAt(pos);
+	if (pos != NULL)
+		theApp.m_listPrinterNotify.RemoveAt(pos);
 
 	CRichEditView::OnDestroy();
 
@@ -684,7 +687,7 @@ BOOL CWordPadView::PasteNative(LPDATAOBJECT lpdataobj)
 			CArchive loadArchive(&file, CArchive::load |
 				CArchive::bNoFlushOnDelete);
 			Stream(loadArchive, TRUE); //stream in selection
-			hr = S_FALSE; // don't let richedit do anything
+			bRes = TRUE; // content was pasted; don't let RichEdit paste it again
 		}
 	}
 	::ReleaseStgMedium(&stgMedium);

@@ -503,14 +503,13 @@ CSize CRulerBar::CalcFixedLayout(BOOL bStretch, BOOL bHorz)
 
 void CRulerBar::Update(const WPD_PARAFORMAT& pf)
 {
-	RRAssert(pf.cTabCount <= MAX_TAB_STOPS);
-
 	m_leftmargin.SetHorzPosTwips((int)(pf.dxStartIndent + pf.dxOffset));
 	m_indent.SetHorzPosTwips((int)pf.dxStartIndent);
 	m_rightmargin.SetHorzPosTwips(PrintWidth() - (int) pf.dxRightIndent);
 
+	int nTabCount = min((int)pf.cTabCount, MAX_TAB_STOPS);
 	int i = 0;
-	for (i=0;i<pf.cTabCount;i++)
+	for (i=0;i<nTabCount;i++)
 		m_pTabItems[i].SetHorzPosTwips((int)pf.rgxTabs[i]);
 	for ( ;i<MAX_TAB_STOPS; i++)
 		m_pTabItems[i].SetHorzPosTwips(0);
