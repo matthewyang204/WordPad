@@ -29,6 +29,9 @@
 
 #define COBJMACROS
 
+/* Minimal Wine compatibility shims (no-op macros and simple types) */
+#include "winedef.h"
+
 #include <windef.h>
 #include <winbase.h>
 #include <winnls.h>
