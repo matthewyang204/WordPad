@@ -44,11 +44,6 @@
 #include <tom.h>
 #include "usp10.h"
 
-#include "wine/asm.h"
-#include "wine/debug.h"
-#include "wine/list.h"
-#include "wine/rbtree.h"
-
 typedef struct tagME_String
 {
   WCHAR *szData;
