@@ -5,7 +5,7 @@ CC=cl
 RC=rc
 LINK=link
 
-CFLAGS=/nologo /W3 /O2 /MD /DWIN32_LEAN_AND_MEAN /D_X86_
+CFLAGS=/nologo /W3 /O2 /MD /DWIN32_LEAN_AND_MEAN /D_X86_ /TC
 LDFLAGS=/DLL /NOLOGO /SUBSYSTEM:WINDOWS /MACHINE:X86 /BASE:0x7ac00000
 
 IMPORTS=uuid.lib ole32.lib oleaut32.lib imm32.lib user32.lib gdi32.lib
