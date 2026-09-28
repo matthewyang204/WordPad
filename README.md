@@ -26,4 +26,4 @@ For testing, you will need to build the project with the `Debug | Win32` configu
 Please note that this project is a fork. It is continued development on WordPad based off the edition of WordPad packaged with Windows XP and earlier found hiding in the Microsoft VC++ Samples repo. You can check out the [VCSamples](https://github.com/microsoft/VCSamples) repo; the src was found in the [WordPad](https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/Visual%20C%2B%2B%202008%20Feature%20Pack/WordPad) section.
 
 # License
-This project is licensed under the GNU GPLv3 license to Microsoft and Matthew Yang (杨佳明). This applies to all versions since `2026-09`; the MIT license was used previously. See the [license file](LICENSE) for more details.
+This project is licensed under the GNU GPLv3 license to Microsoft and Matthew Yang (杨佳明). This applies to all versions since after `2026-09`; the MIT license was used previously. See the [license file](LICENSE) for more details.
